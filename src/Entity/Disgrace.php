@@ -1,0 +1,57 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\DisgraceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: DisgraceRepository::class)]
+class Disgrace
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    /**
+     * @var Collection<int, Carte>
+     */
+    #[ORM\ManyToMany(targetEntity: Carte::class, inversedBy: 'disgraces')]
+    private Collection $cartes;
+
+    public function __construct()
+    {
+        $this->cartes = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return Collection<int, Carte>
+     */
+    public function getCartes(): Collection
+    {
+        return $this->cartes;
+    }
+
+    public function addCarte(Carte $carte): static
+    {
+        if (!$this->cartes->contains($carte)) {
+            $this->cartes->add($carte);
+        }
+
+        return $this;
+    }
+
+    public function removeCarte(Carte $carte): static
+    {
+        $this->cartes->removeElement($carte);
+
+        return $this;
+    }
+}
