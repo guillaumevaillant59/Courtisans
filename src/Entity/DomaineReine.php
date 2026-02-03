@@ -14,10 +14,15 @@ class DomaineReine
     private ?int $id = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Lumiere $lumiere = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Disgrace $disgrace = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $path = null;
 
     public function getId(): ?int
     {
@@ -29,7 +34,7 @@ class DomaineReine
         return $this->lumiere;
     }
 
-    public function setLumiere(?Lumiere $lumiere): static
+    public function setLumiere(Lumiere $lumiere): static
     {
         $this->lumiere = $lumiere;
 
@@ -41,9 +46,21 @@ class DomaineReine
         return $this->disgrace;
     }
 
-    public function setDisgrace(?Disgrace $disgrace): static
+    public function setDisgrace(Disgrace $disgrace): static
     {
         $this->disgrace = $disgrace;
+
+        return $this;
+    }
+
+    public function getPath(): ?string
+    {
+        return $this->path;
+    }
+
+    public function setPath(string $path): static
+    {
+        $this->path = $path;
 
         return $this;
     }

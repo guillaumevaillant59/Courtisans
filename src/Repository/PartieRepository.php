@@ -2,39 +2,39 @@
 
 namespace App\Repository;
 
-use App\Entity\DomaineJoueur;
+use App\Entity\Partie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<DomaineJoueur>
+ * @extends ServiceEntityRepository<Partie>
  */
-class DomaineJoueurRepository extends ServiceEntityRepository
+class PartieRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, DomaineJoueur::class);
+        parent::__construct($registry, Partie::class);
     }
 
 //    /**
-//     * @return DomaineJoueur[] Returns an array of DomaineJoueur objects
+//     * @return Partie[] Returns an array of Partie objects
 //     */
 //    public function findByExampleField($value): array
 //    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
+//        return $this->createQueryBuilder('p')
+//            ->andWhere('p.exampleField = :val')
 //            ->setParameter('val', $value)
-//            ->orderBy('d.id', 'ASC')
+//            ->orderBy('p.id', 'ASC')
 //            ->setMaxResults(10)
 //            ->getQuery()
 //            ->getResult()
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?DomaineJoueur
+//    public function findOneBySomeField($value): ?Partie
 //    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
+//        return $this->createQueryBuilder('p')
+//            ->andWhere('p.exampleField = :val')
 //            ->setParameter('val', $value)
 //            ->getQuery()
 //            ->getOneOrNullResult()
