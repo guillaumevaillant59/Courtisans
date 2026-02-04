@@ -197,18 +197,6 @@ class AppFixtures extends Fixture
         $manager->persist($missionBleue8);
         $manager->persist($missionBleue9);
         $manager->persist($missionBleue10);
-
-        $lumiere1= new Lumiere();
-        $disgrace1= new Disgrace();        
-        $manager->persist($lumiere1);
-        $manager->persist($disgrace1);
-        $domaineReine1= new DomaineReine();
-        $domaineReine1->setLumiere($lumiere1);
-        $domaineReine1->setDisgrace($disgrace1);
-        $domaineReine1->setPath("./assets/image/domaine_reine.jpg");
-        $manager->persist($domaineReine1);
-
-
        
         $manager->flush();
     }

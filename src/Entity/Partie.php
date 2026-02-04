@@ -6,6 +6,7 @@ use App\Repository\PartieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PartieRepository::class)]
 class Partie
@@ -16,8 +17,7 @@ class Partie
     private ?int $id = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?DomaineReine $doamineReine = null;
+    private ?DomaineReine $domaineReine = null;
 
     /**
      * @var Collection<int, Carte>
@@ -28,8 +28,17 @@ class Partie
     /**
      * @var Collection<int, Joueur>
      */
-    #[ORM\OneToMany(targetEntity: Joueur::class, mappedBy: 'partie', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Joueur::class, mappedBy: 'partie')]
     private Collection $joueurs;
+
+    #[ORM\Column]
+    #[Assert\Length(
+        min: 2,
+        max: 5,
+        minMessage: 'Le nombre minimum de joueurs est de {{ limit }}.',
+        maxMessage: 'Le nombre maximum de joueurs est de {{ limit }}.',
+    )]
+    private ?int $nombreJoueurMax = null;
 
     public function __construct()
     {
@@ -42,14 +51,14 @@ class Partie
         return $this->id;
     }
 
-    public function getDoamineReine(): ?DomaineReine
+    public function getDomaineReine(): ?DomaineReine
     {
-        return $this->doamineReine;
+        return $this->domaineReine;
     }
 
-    public function setDoamineReine(DomaineReine $doamineReine): static
+    public function setDomaineReine(?DomaineReine $domaineReine): static
     {
-        $this->doamineReine = $doamineReine;
+        $this->domaineReine = $domaineReine;
 
         return $this;
     }
@@ -104,6 +113,18 @@ class Partie
                 $joueur->setPartie(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNombreJoueurMax(): ?int
+    {
+        return $this->nombreJoueurMax;
+    }
+
+    public function setNombreJoueurMax(int $nombreJoueurMax): static
+    {
+        $this->nombreJoueurMax = $nombreJoueurMax;
 
         return $this;
     }

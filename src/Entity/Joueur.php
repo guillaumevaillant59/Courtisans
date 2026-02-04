@@ -13,16 +13,13 @@ class Joueur
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $pseudo = null;
+    #[ORM\ManyToOne(inversedBy: 'joueurs')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Utilisateur $utilisateur = null;
 
     #[ORM\ManyToOne(inversedBy: 'joueurs')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Partie $partie = null;
-
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Utilisateur $utilisateur = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?MainJoueur $main = null;
@@ -30,27 +27,19 @@ class Joueur
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?DomaineJoueur $domaine = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?MissionBlanche $missionBlanche = null;
-
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?MissionBleue $missionBleue = null;
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getPseudo(): ?string
+    public function getUtilisateur(): ?Utilisateur
     {
-        return $this->pseudo;
+        return $this->utilisateur;
     }
 
-    public function setPseudo(string $pseudo): static
+    public function setUtilisateur(?Utilisateur $utilisateur): static
     {
-        $this->pseudo = $pseudo;
+        $this->utilisateur = $utilisateur;
 
         return $this;
     }
@@ -63,18 +52,6 @@ class Joueur
     public function setPartie(?Partie $partie): static
     {
         $this->partie = $partie;
-
-        return $this;
-    }
-
-    public function getUtilisateur(): ?Utilisateur
-    {
-        return $this->utilisateur;
-    }
-
-    public function setUtilisateur(?Utilisateur $utilisateur): static
-    {
-        $this->utilisateur = $utilisateur;
 
         return $this;
     }
@@ -99,30 +76,6 @@ class Joueur
     public function setDomaine(?DomaineJoueur $domaine): static
     {
         $this->domaine = $domaine;
-
-        return $this;
-    }
-
-    public function getMissionBlanche(): ?MissionBlanche
-    {
-        return $this->missionBlanche;
-    }
-
-    public function setMissionBlanche(MissionBlanche $missionBlanche): static
-    {
-        $this->missionBlanche = $missionBlanche;
-
-        return $this;
-    }
-
-    public function getMissionBleue(): ?MissionBleue
-    {
-        return $this->missionBleue;
-    }
-
-    public function setMissionBleue(MissionBleue $missionBleue): static
-    {
-        $this->missionBleue = $missionBleue;
 
         return $this;
     }

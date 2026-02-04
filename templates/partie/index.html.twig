@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Parties{% endblock %}
+
+{% block body %}
+    <h1>Parties</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre de Joueurs Maximum</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for partie in parties %}
+            <tr>
+                <td>{{ partie.nombreJoueurMax }}</td>
+                <td>
+                    <a href="{{ path('app_partie_show', {'id': partie.id}) }}">Voir</a>
+                    <a href="{{ path('app_partie_join', {'id': partie.id}) }}">Rejoindre</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Pas de parties disponibles</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_partie_new') }}">Créer une nouvelle partie</a>
+{% endblock %}
