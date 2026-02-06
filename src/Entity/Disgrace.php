@@ -19,42 +19,49 @@ class Disgrace
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
+    #[ORM\JoinTable(name: 'disgrace_papillon')]
     private Collection $papillon;
 
     /**
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
+    #[ORM\JoinTable(name: 'disgrace_crapaud')]
     private Collection $crapaud;
 
     /**
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
+    #[ORM\JoinTable(name: 'disgrace_rossignol')]
     private Collection $rossignol;
 
     /**
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
+    #[ORM\JoinTable(name: 'disgrace_espion')]
     private Collection $espion;
 
     /**
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
+    #[ORM\JoinTable(name: 'disgrace_cerf')]
     private Collection $cerf;
 
     /**
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
+    #[ORM\JoinTable(name: 'disgrace_lapin')]
     private Collection $lapin;
 
     /**
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
+    #[ORM\JoinTable(name: 'disgrace_carpe')]
     private Collection $carpe;
 
     public function __construct()

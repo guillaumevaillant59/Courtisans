@@ -19,42 +19,49 @@ class DomaineJoueur
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
+    #[ORM\JoinTable(name: 'domainejoueur_papillon')]
     private Collection $papillon;
 
     /**
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
+    #[ORM\JoinTable(name: 'domainejoueur_crapaud')]
     private Collection $crapaud;
 
     /**
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
+    #[ORM\JoinTable(name: 'domainejoueur_rossignol')]
     private Collection $rossignol;
 
     /**
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
+    #[ORM\JoinTable(name: 'domainejoueur_cerf')]
     private Collection $cerf;
 
     /**
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
+    #[ORM\JoinTable(name: 'domainejoueur_lapin')]
     private Collection $lapin;
 
     /**
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
+    #[ORM\JoinTable(name: 'domainejoueur_carpe')]
     private Collection $carpe;
 
     /**
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
+    #[ORM\JoinTable(name: 'domainejoueur_espion')]
     private Collection $espion;
 
     public function __construct()

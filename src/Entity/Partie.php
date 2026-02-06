@@ -40,6 +40,9 @@ class Partie
     )]
     private ?int $nombreJoueurMax = null;
 
+    #[ORM\Column(length: 10)]
+    private ?string $Status = null;
+
     public function __construct()
     {
         $this->pioche = new ArrayCollection();
@@ -125,6 +128,18 @@ class Partie
     public function setNombreJoueurMax(int $nombreJoueurMax): static
     {
         $this->nombreJoueurMax = $nombreJoueurMax;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->Status;
+    }
+
+    public function setStatus(string $Status): static
+    {
+        $this->Status = $Status;
 
         return $this;
     }

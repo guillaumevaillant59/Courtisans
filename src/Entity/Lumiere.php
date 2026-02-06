@@ -19,42 +19,49 @@ class Lumiere
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
+    #[ORM\JoinTable(name: 'lumiere_papillons')]
     private Collection $papillons;
 
     /**
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
+    #[ORM\JoinTable(name: 'lumiere_crapaud')]
     private Collection $crapaud;
 
     /**
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
+    #[ORM\JoinTable(name: 'lumiere_rossignol')]
     private Collection $rossignol;
 
     /**
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
+    #[ORM\JoinTable(name: 'lumiere_espion')]
     private Collection $espion;
 
     /**
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
+    #[ORM\JoinTable(name: 'lumiere_cerf')]
     private Collection $cerf;
 
     /**
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
+    #[ORM\JoinTable(name: 'lumiere_lapin')]
     private Collection $lapin;
 
     /**
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
+    #[ORM\JoinTable(name: 'lumiere_carpe')]
     private Collection $carpe;
 
     public function __construct()
