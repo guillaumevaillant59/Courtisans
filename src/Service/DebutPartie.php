@@ -9,8 +9,7 @@ use App\Entity\DomaineReine;
 use App\Entity\Lumiere;
 use App\Entity\Disgrace;
 use App\Entity\Utilisateur;
-use App\Entity\MissionBlanche;
-use App\Entity\MissionBleue;
+
 use App\Repository\CarteRepository;
 use App\Repository\MissionBlancheRepository; 
 use App\Repository\MissionBleueRepository;

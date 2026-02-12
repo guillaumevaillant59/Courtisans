@@ -16,17 +16,7 @@ final class ServicePartie
 {
     private EntityManagerInterface $entityManager;
     private FinPartie $finPartie;
-    private DomaineReine $domaineReine;
-    private DomaineJoueur $domaineJoueur;
-    private Lumiere $lumiere; 
-    private Disgrace $disgrace;
-
-
-
     
-
-
-
     public function __construct(EntityManagerInterface $entityManager, FinPartie $finPartie)
     {
         $this->entityManager = $entityManager;

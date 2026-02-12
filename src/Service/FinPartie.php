@@ -4,16 +4,7 @@ namespace App\Service;
 
 use App\Entity\Partie;
 use App\Entity\Joueur;
-use App\Entity\Carte;
-use App\Entity\DomaineReine;
-use App\Entity\Lumiere;
-use App\Entity\Disgrace;
-use App\Entity\DomaineJoueur;
-use App\Entity\Utilisateur;
-use App\Entity\MissionBlanche;
-use App\Entity\MissionBleue;
-use App\Repository\CarteRepository;
-use Doctrine\ORM\EntityManagerInterface;    
+   
 
 final class FinPartie
 {
