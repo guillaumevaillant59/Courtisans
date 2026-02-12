@@ -33,60 +33,84 @@ final class FinPartie
         $domaineReine = $partie->getDomaineReine();
         $espionsLumiere = $domaineReine->getLumiere()->getEspion();
         foreach ($espionsLumiere as $espion) {
-            $domaineReine->getLumiere()->getEspion()->removeEspion($espion);
-            if ($espion->getFamille() === 'Papillon') {
-                $domaineReine->getLumiere()->getPapillon()->addPapillon($espion);
-            } elseif ($espion->getFamille() === 'Crapaud') {
-                $domaineReine->getLumiere()->getCrapaud()->addCrapaud($espion);
-            } elseif ($espion->getFamille() === 'Rossignol') {
-                $domaineReine->getLumiere()->getRossignol()->addRossignol($espion);
-            } elseif ($espion->getFamille() === 'Cerf') {
-                $domaineReine->getLumiere()->getCerf()->addCerf($espion);
-            } elseif ($espion->getFamille() === 'Lapin') {
-                $domaineReine->getLumiere()->getLapin()->addLapin($espion);
-            } elseif ($espion->getFamille() === 'Carpe') {
-                $domaineReine->getLumiere()->getCarpe()->addCarpe($espion);
+            $domaineReine->getLumiere()->removeEspion($espion);
+           switch ($espion->getFamille()) 
+           {
+                case 'Papillon': 
+                    $domaineReine->getLumiere()->addPapillon($espion);
+                    break; 
+                case 'Crapaud':
+                    $domaineReine->getLumiere()->addCrapaud($espion); 
+                    break; 
+                case 'Rossignol': 
+                    $domaineReine->getLumiere()->addRossignol($espion); 
+                    break; 
+                case 'Cerf': 
+                    $domaineReine->getLumiere()->addCerf($espion); 
+                    break; 
+                case 'Lapin': 
+                    $domaineReine->getLumiere()->addLapin($espion); 
+                    break; 
+                case 'Carpe': 
+                        $domaineReine->getLumiere()->addCarpe($espion); 
+                        break; 
             }
         }
 
         $espionsDisgrace = $domaineReine->getDisgrace()->getEspion();
         foreach ($espionsDisgrace as $espion) {
-            $domaineReine->getDisgrace()->getEspion()->removeEspion($espion);
-            if ($espion->getFamille() === 'Papillon') {
-                $domaineReine->getDisgrace()->getPapillon()->addPapillon($espion);
-            } elseif ($espion->getFamille() === 'Crapaud') {
-                $domaineReine->getDisgrace()->getCrapaud()->addCrapaud($espion);
-            } elseif ($espion->getFamille() === 'Rossignol') {
-                $domaineReine->getDisgrace()->getRossignol()->addRossignol($espion);
-            } elseif ($espion->getFamille() === 'Cerf') {
-                $domaineReine->getDisgrace()->getCerf()->addCerf($espion);
-            } elseif ($espion->getFamille() === 'Lapin') {
-                $domaineReine->getDisgrace()->getLapin()->addLapin($espion);
-            } elseif ($espion->getFamille() === 'Carpe') {
-                $domaineReine->getDisgrace()->getCarpe()->addCarpe($espion);
+            $domaineReine->getDisgrace()->removeEspion($espion);
+            switch ($espion->getFamille()) 
+            { 
+                case 'Papillon': 
+                    $domaineReine->getDisgrace()->addPapillon($espion); 
+                    break; 
+                case 'Crapaud': 
+                    $domaineReine->getDisgrace()->addCrapaud($espion); 
+                    break; 
+                case 'Rossignol': 
+                    $domaineReine->getDisgrace()->addRossignol($espion); 
+                    break; 
+                case 'Cerf': 
+                    $domaineReine->getDisgrace()->addCerf($espion); 
+                    break; 
+                case 'Lapin': 
+                    $domaineReine->getDisgrace()->addLapin($espion); 
+                    break; 
+                case 'Carpe': 
+                    $domaineReine->getDisgrace()->addCarpe($espion); 
+                    break; 
             }
         }
 
         $joueurs = $partie->getJoueurs();
         foreach ($joueurs as $joueur) {
-            $espionsDomaineJoueur = $joueur->getDomaineJoueur()->getEspion();
+            $espionsDomaineJoueur = $joueur->getDomaine()->getEspion();
             foreach ($espionsDomaineJoueur as $espion) {
-                $joueur->getDomaineJoueur()->getEspion()->removeEspion($espion);
-                if ($espion->getFamille() === 'Papillon') {
-                    $joueur->getDomaineJoueur()->getPapillon()->addPapillon($espion);
-                } elseif ($espion->getFamille() === 'Crapaud')  {
-                    $joueur->getDomaineJoueur()->getCrapaud()->addCrapaud($espion);
-                } elseif ($espion->getFamille() === 'Rossignol') {
-                    $joueur->getDomaineJoueur()->getRossignol()->addRossignol($espion);
-                } elseif ($espion->getFamille() === 'Cerf') {
-                    $joueur->getDomaineJoueur()->getCerf()->addCerf($espion);
-                } elseif ($espion->getFamille() === 'Lapin') {
-                    $joueur->getDomaineJoueur()->getLapin()->addLapin($espion);
-                } elseif ($espion->getFamille() === 'Carpe') {
-                    $joueur->getDomaineJoueur()->getCarpe()->addCarpe($espion);
+                $joueur->getDomaine()->removeEspion($espion);
+                switch ($espion->getFamille())
+                { 
+                    case 'Papillon': 
+                        $joueur->getDomaine()->addPapillon($espion); 
+                        break; 
+                    case 'Crapaud': 
+                        $joueur->getDomaine()->addCrapaud($espion); 
+                        break; 
+                    case 'Rossignol': 
+                        $joueur->getDomaine()->addRossignol($espion); 
+                        break; 
+                    case 'Cerf': 
+                        $joueur->getDomaine()->addCerf($espion); 
+                        break; 
+                    case 'Lapin': 
+                        $joueur->getDomaine()->addLapin($espion); 
+                        break; 
+                    case 'Carpe': 
+                        $joueur->getDomaine()->addCarpe($espion); 
+                        break; 
                 }
             }
-            $this->entityManager->persist($joueur->getDomaineJoueur());
+            $this->entityManager->persist($joueur->getDomaine());
         }   
         $this->entityManager->persist($domaineReine);
         $this->entityManager->flush();
@@ -204,7 +228,7 @@ final class FinPartie
     public function compterPointsParFamilleParJoueur(Joueur $joueur, string $famille): int
     {
         $pointsParFamille = 0;
-        $domaineJoueur = $joueur->getDomaineJoueur();        
+        $domaineJoueur = $joueur->getDomaine();        
         $cartes = null;
         
         switch ($famille) {

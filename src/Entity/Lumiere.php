@@ -83,7 +83,7 @@ class Lumiere
     /**
      * @return Collection<int, Carte>
      */
-    public function getPapillons(): Collection
+    public function getPapillon(): Collection
     {
         return $this->papillons;
     }
