@@ -12,17 +12,32 @@ use App\Entity\Utilisateur;
 use App\Entity\MissionBlanche;
 use App\Entity\MissionBleue;
 use App\Repository\CarteRepository;
-use Doctrine\ORM\EntityManagerInterface;    
+use App\Repository\MissionBlancheRepository; 
+use App\Repository\MissionBleueRepository;
+use App\Service\ServicePartie;
+use Doctrine\ORM\EntityManagerInterface; 
+   
 
 final class DebutPartie
 {
     private $entityManager;
     private $carteRepository;
+    private $missionBlancheRepository;
+    private $missionBleueRepository;
+    private $servicePartie;
 
-    public function __construct(EntityManagerInterface $entityManager, CarteRepository $carteRepository)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        CarteRepository $carteRepository,
+        MissionBlancheRepository $missionBlancheRepository,
+        MissionBleueRepository $missionBleueRepository,
+        ServicePartie $servicePartie
+    ) {
         $this->entityManager = $entityManager;
         $this->carteRepository = $carteRepository;
+        $this->missionBlancheRepository = $missionBlancheRepository;
+        $this->missionBleueRepository = $missionBleueRepository;
+        $this->servicePartie = $servicePartie;
     }
 
     public function creerPartie(int $nombreJoueurMax, Utilisateur $utilisateur): Partie
@@ -85,7 +100,7 @@ final class DebutPartie
         $partie->setDomaineReine($domaineReine);
 
         // Créer la pioche
-        $this->creerPioche($partie, $this->entityManager->getRepository(Carte::class), $this->entityManager);
+        $this->creerPioche($partie, $this->carteRepository, $this->entityManager);
         $this->commencerPartie($partie);
 
         $this->entityManager->persist($partie);
@@ -97,41 +112,33 @@ final class DebutPartie
         // Commencement de la partie : distribution des cartes aux joueurs.
         foreach ($partie->getJoueurs() as $joueur) {
             // Distribuer des cartes au joueur. 
-            $this->piocher($partie, $joueur);
+            $this->servicePartie->piocher($partie, $joueur);
             // Attribuer des missions au joueur.
-            $this->attribuerMissions($partie, $joueur, 
-                $this->entityManager->getRepository(MissionBlanche::class), 
-                $this->entityManager->getRepository(MissionBleue::class), 
-                $this->entityManager);
+            $this->attribuerMissions($partie, $joueur);
         }
     }
 
-    public function attribuerMissions(
-        Partie $partie, 
-        Joueur $joueur,
-        MissionBlancheRepository $missionBlancheRepository,
-        MissionBleueRepository $missionBleueRepository,
-        EntityManagerInterface $entityManager): void
+    public function attribuerMissions(Partie $partie, Joueur $joueur): void
     {
-        $missionsBlanches = $missionBlancheRepository->findAll();
-        $missionsBleues = $missionBleueRepository->findAll();
+        $missionsBlanches = $this->missionBlancheRepository->findAll();
+        $missionsBleues = $this->missionBleueRepository->findAll();
 
         for ($i = 0; $i < 2; $i++) {
             $indexBlanche = array_rand($missionsBlanches);
-            $missionBlanche = $missionsBlanches[$indexBlanche];
+            $missionBlanche = $missionsBlanches[$indexBlanche] ?? null;
             if ($missionBlanche) {
-                $joueur->getMissionsBlanches()->add($missionBlanche);
+                $joueur->setMissionBlanche($missionBlanche);
             }
 
             $indexBleue = array_rand($missionsBleues);
-            $missionBleue = $missionsBleues[$indexBleue];
+            $missionBleue = $missionsBleues[$indexBleue] ?? null;
             if ($missionBleue) {
-                $joueur->getMissionsBleues()->add($missionBleue);
+                $joueur->setMissionBleue($missionBleue);
             }
         }
 
-        $entityManager->persist($joueur);
-        $entityManager->flush();
+        $this->entityManager->persist($joueur);
+        $this->entityManager->flush();
     }
 
     public function creerPioche(

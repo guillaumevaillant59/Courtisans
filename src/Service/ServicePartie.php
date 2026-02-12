@@ -9,19 +9,28 @@ use App\Entity\Lumiere;
 use App\Entity\Disgrace;
 use App\Entity\DomaineJoueur;
 use App\Entity\Joueur;
-use App\Entity\Utilisateur;
-use App\Entity\MissionBlanche;
-use App\Entity\MissionBleue;
+
 use Doctrine\ORM\EntityManagerInterface;
-use Repository\CarteRepository;
 
 final class ServicePartie
 {
     private EntityManagerInterface $entityManager;
+    private FinPartie $finPartie;
+    private DomaineReine $domaineReine;
+    private DomaineJoueur $domaineJoueur;
+    private Lumiere $lumiere; 
+    private Disgrace $disgrace;
 
-    public function __construct(EntityManagerInterface $entityManager)
+
+
+    
+
+
+
+    public function __construct(EntityManagerInterface $entityManager, FinPartie $finPartie)
     {
         $this->entityManager = $entityManager;
+        $this->finPartie = $finPartie;
     }
 
     public function ajouterCarteDansDomaineReine(Partie $partie, Carte $carte, Joueur $joueur, string $type): void
@@ -29,54 +38,54 @@ final class ServicePartie
         $domaineReine = $partie->getDomaineReine();
         if ($type === 'lumiere') {
             if ($carte->getRole() === 'Espion') {
-                $domaineReine->getLumiere()->getEspion()->addEspion($carte);
+                $domaineReine->getLumiere()->addEspion($carte);
             } else {
-                switch ($carte->getFamille() && $carte->getRole()) {
+                switch ($carte->getFamille()) {
                     case 'Papillon':
-                        $domaineReine->getLumiere()->getPapillon()->addPapillon($carte);
+                        $domaineReine->getLumiere()->addPapillon($carte);
                         break;
                     
                     case 'Crapaud':
-                        $domaineReine->getLumiere()->getCrapaud()->addCrapaud($carte);
+                        $domaineReine->getLumiere()->addCrapaud($carte);
                         break;
                     case 'Rossignol':
-                        $domaineReine->getLumiere()->getRossignol()->addRossignol($carte);
+                        $domaineReine->getLumiere()->addRossignol($carte);
                         break;
                     case 'Cerf':
-                        $domaineReine->getLumiere()->getCerf()->addCerf($carte);
+                        $domaineReine->getLumiere()->addCerf($carte);
                         break;
                     case 'Lapin':
-                        $domaineReine->getLumiere()->getLapin()->addLapin($carte);
+                        $domaineReine->getLumiere()->addLapin($carte);
                         break;
                     case 'Carpe':
-                        $domaineReine->getLumiere()->getCarpe()->addCarpe($carte);
+                        $domaineReine->getLumiere()->addCarpe($carte);
                         break;
                 }
             }
             
         } elseif ($type === 'disgrace') {
             if ($carte->getRole() === 'Espion') {
-                $domaineReine->getDisgrace()->getEspion()->addEspion($carte);
+                $domaineReine->getDisgrace()->addEspion($carte);
             } else {
-                switch ($carte->getFamille() && $carte->getRole()) {
+                switch ($carte->getFamille()) {
                     case 'Papillon':
-                        $domaineReine->getDisgrace()->getPapillon()->addPapillon($carte);
+                        $domaineReine->getDisgrace()->addPapillon($carte);
                         break;
                     
                     case 'Crapaud':
-                        $domaineReine->getDisgrace()->getCrapaud()->addCrapaud($carte);
+                        $domaineReine->getDisgrace()->addCrapaud($carte);
                         break;
                     case 'Rossignol':
-                        $domaineReine->getDisgrace()->getRossignol()->addRossignol($carte);
+                        $domaineReine->getDisgrace()->addRossignol($carte);
                         break;
                     case 'Cerf':
-                        $domaineReine->getDisgrace()->getCerf()->addCerf($carte);
+                        $domaineReine->getDisgrace()->addCerf($carte);
                         break;
                     case 'Lapin':
-                        $domaineReine->getDisgrace()->getLapin()->addLapin($carte);
+                        $domaineReine->getDisgrace()->addLapin($carte);
                         break;
                     case 'Carpe':
-                        $domaineReine->getDisgrace()->getCarpe()->addCarpe($carte);
+                        $domaineReine->getDisgrace()->addCarpe($carte);
                         break;
                 }
             }            
@@ -95,27 +104,27 @@ final class ServicePartie
         if ($type === 'lumiere') {
             // Retirer la carte du domaine de la lumière   
             if( $carte->getRole() === 'Espion') {
-                $domaineReine->getLumiere()->getEspion()->removeEspion($carte);
+                $domaineReine->getLumiere()->removeEspion($carte);
             } else {
                 switch ($carte->getFamille()) {
                     case 'Papillon':
-                        $domaineReine->getLumiere()->getPapillon()->removePapillon($carte);
+                        $domaineReine->getLumiere()->removePapillon($carte);
                         break;
                     
                     case 'Crapaud':
-                        $domaineReine->getLumiere()->getCrapaud()->removeCrapaud($carte);
+                        $domaineReine->getLumiere()->removeCrapaud($carte);
                         break;
                     case 'Rossignol':
-                        $domaineReine->getLumiere()->getRossignol()->removeRossignol($carte);
+                        $domaineReine->getLumiere()->removeRossignol($carte);
                         break;
                     case 'Cerf':
-                        $domaineReine->getLumiere()->getCerf()->removeCerf($carte);
+                        $domaineReine->getLumiere()->removeCerf($carte);
                         break;
                     case 'Lapin':
-                        $domaineReine->getLumiere()->getLapin()->removeLapin($carte);
+                        $domaineReine->getLumiere()->removeLapin($carte);
                         break;
                     case 'Carpe':
-                        $domaineReine->getLumiere()->getCarpe()->removeCarpe($carte);
+                        $domaineReine->getLumiere()->removeCarpe($carte);
                         break;
                 }
             }
@@ -124,27 +133,27 @@ final class ServicePartie
         } elseif ($type === 'disgrace') {
             // Retirer la carte du domaine de la disgrâce
             if( $carte->getRole() === 'Espion') {
-                $domaineReine->getDisgrace()->getEspion()->removeEspion($carte);
+                $domaineReine->getDisgrace()->removeEspion($carte);
             } else {
                 switch ($carte->getFamille()) {
                     case 'Papillon':
-                        $domaineReine->getDisgrace()->getPapillon()->removePapillon($carte);
+                        $domaineReine->getDisgrace()->removePapillon($carte);
                         break;
                     
                     case 'Crapaud':
-                        $domaineReine->getDisgrace()->getCrapaud()->removeCrapaud($carte);
+                        $domaineReine->getDisgrace()->removeCrapaud($carte);
                         break;
                     case 'Rossignol':
-                        $domaineReine->getDisgrace()->getRossignol()->removeRossignol($carte);
+                        $domaineReine->getDisgrace()->removeRossignol($carte);
                         break;
                     case 'Cerf':
-                        $domaineReine->getDisgrace()->getCerf()->removeCerf($carte);
+                        $domaineReine->getDisgrace()->removeCerf($carte);
                         break;
                     case 'Lapin':
-                        $domaineReine->getDisgrace()->getLapin()->removeLapin($carte);
+                        $domaineReine->getDisgrace()->removeLapin($carte);
                         break;
                     case 'Carpe':
-                        $domaineReine->getDisgrace()->getCarpe()->removeCarpe($carte);
+                        $domaineReine->getDisgrace()->removeCarpe($carte);
                         break;
                 }
             }
@@ -157,27 +166,27 @@ final class ServicePartie
     public function ajouterCarteDansDomaineJoueur(Joueur $joueurAjoutant, Joueur $joueurRecevant, Carte $carte): void
     {
         if($carte->getRole() === 'Espion') {
-            $joueurRecevant->getDomaineJoueur()->getEspion()->addEspion($carte);
+            $joueurRecevant->getDomaine()->addEspion($carte);
         } else {
             switch ($carte->getFamille()) {
                 case 'Papillon':
-                    $joueurRecevant->getDomaineJoueur()->getPapillon()->addPapillon($carte);
+                    $joueurRecevant->getDomaine()->addPapillon($carte);
                     break;
                 
                 case 'Crapaud':
-                    $joueurRecevant->getDomaineJoueur()->getCrapaud()->addCrapaud($carte);
+                    $joueurRecevant->getDomaine()->addCrapaud($carte);
                     break;
                 case 'Rossignol':
-                    $joueurRecevant->getDomaineJoueur()->getRossignol()->addRossignol($carte);
+                    $joueurRecevant->getDomaine()->addRossignol($carte);
                     break;
                 case 'Cerf':
-                    $joueurRecevant->getDomaineJoueur()->getCerf()->addCerf($carte);
+                    $joueurRecevant->getDomaine()->addCerf($carte);
                     break;
                 case 'Lapin':
-                    $joueurRecevant->getDomaineJoueur()->getLapin()->addLapin($carte);
+                    $joueurRecevant->getDomaine()->addLapin($carte);
                     break;
                 case 'Carpe':
-                    $joueurRecevant->getDomaineJoueur()->getCarpe()->addCarpe($carte);
+                    $joueurRecevant->getDomaine()->addCarpe($carte);
                     break;
             }
         }
@@ -192,27 +201,27 @@ final class ServicePartie
     public function retirerCarteDuDomaineJoueur(Joueur $joueur, Carte $carte): void
     {
         if( $carte->getRole() === 'Espion') {
-            $joueur->getDomaineJoueur()->getEspion()->removeEspion($carte);
+            $joueur->getDomaine()->removeEspion($carte);
         } else {
             switch ($carte->getFamille()) {
                 case 'Papillon':
-                    $joueur->getDomaineJoueur()->getPapillon()->removePapillon($carte);
+                    $joueur->getDomaine()->removePapillon($carte);
                     break;
                 
                 case 'Crapaud':
-                    $joueur->getDomaineJoueur()->getCrapaud()->removeCrapaud($carte);
+                    $joueur->getDomaine()->removeCrapaud($carte);
                     break;
                 case 'Rossignol':
-                    $joueur->getDomaineJoueur()->getRossignol()->removeRossignol($carte);
+                    $joueur->getDomaine()->removeRossignol($carte);
                     break;
                 case 'Cerf':
-                    $joueur->getDomaineJoueur()->getCerf()->removeCerf($carte);
+                    $joueur->getDomaine()->removeCerf($carte);
                     break;
                 case 'Lapin':
-                    $joueur->getDomaineJoueur()->getLapin()->removeLapin($carte);
+                    $joueur->getDomaine()->removeLapin($carte);
                     break;
                 case 'Carpe':
-                    $joueur->getDomaineJoueur()->getCarpe()->removeCarpe($carte);
+                    $joueur->getDomaine()->removeCarpe($carte);
                     break;
             }
         }
@@ -226,14 +235,15 @@ final class ServicePartie
     {
         $piocheArray = $partie->getPioche()->toArray();
         if (count($piocheArray) === 0) {
-            return null; // La pioche est vide
-            $this->terminerPartie($partie);
+            // La pioche est vide — terminer la partie via le service dédié
+            $this->finPartie->terminerPartie($partie);
+            return null;
         }
         for ($i = 0; $i < 3; $i++) { 
             $index = array_rand($piocheArray);
             $carte = $piocheArray[$index];
             if ($carte) {
-                $joueur->getMain()->add($carte);
+                $joueur->getMain()->addCarte($carte);
                 $partie->getPioche()->removeElement($carte);
             }
         }
