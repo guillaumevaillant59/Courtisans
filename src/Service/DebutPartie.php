@@ -39,10 +39,14 @@ final class DebutPartie
         $this->servicePartie = $servicePartie;
     }
 
+    // Méthode pour initier une partie et ajouter le premier joueur
     public function creerPartie(int $nombreJoueurMax, Utilisateur $utilisateur): Partie
     {
+        // Création d'une nouvelle partie 
         $partie = new Partie();
+        // Initialisation des propriétés de la partie
         $partie->setNombreJoueurMax($nombreJoueurMax);
+        // Création du joueur qui a initié la partie et association avec la partie
         $joueur = new Joueur();
         $joueur->setUtilisateur($utilisateur);
         $joueur->setPartie($partie);
@@ -56,26 +60,10 @@ final class DebutPartie
         return $partie;
     }
 
-    public function ajouterJoueur(Partie $partie, Utilisateur $utilisateur): void
-    {
-        $joueur = new Joueur();
-        $joueur->setUtilisateur($utilisateur);
-        $joueur->setPartie($partie);
-        if (!$partie->getJoueurs()->contains($joueur) && $partie->getJoueurs()->count() < $partie->getNombreJoueurMax()) {
-            $partie->addJoueur($joueur);
-        }
-        if ($partie->getJoueurs()->count() === $partie->getNombreJoueurMax()) {
-            $partie->setStatus('en cours');
-            $this->initialiserPartie($partie);
-        }
-              
-        $this->entityManager->persist($joueur);
-        $this->entityManager->persist($partie);
-        $this->entityManager->flush();
-    }
-
+    // Méthode pour rejoindre une partie existante
     public function rejoindrePartie(Partie $partie, Utilisateur $utilisateur): void
     {
+        // Création du joueur qui rejoint la partie et association avec la partie
         $joueur = new Joueur();
         $joueur->setUtilisateur($utilisateur);
         $joueur->setPartie($partie);
@@ -92,6 +80,7 @@ final class DebutPartie
         $this->entityManager->flush();
     }
 
+    // Méthode pour initialiser la partie une fois que tous les joueurs ont rejoint
     public function initialiserPartie(Partie $partie): void
     {
         // Créer le domaine de la reine
@@ -106,6 +95,7 @@ final class DebutPartie
         $this->entityManager->flush();
     }
 
+    // Méthod pour démarrer la partie : distribuer les cartes et attribuer les missions aux joueurs
     public function commencerPartie(Partie $partie): void
     {
         // Commencement de la partie : distribution des cartes aux joueurs.
@@ -117,29 +107,32 @@ final class DebutPartie
         }
     }
 
+    // Méthode pour attribuer les missions aux joueurs
     public function attribuerMissions(Partie $partie, Joueur $joueur): void
     {
+        // Récupération de toutes les missions disponibles
         $missionsBlanches = $this->missionBlancheRepository->findAll();
         $missionsBleues = $this->missionBleueRepository->findAll();
 
-        for ($i = 0; $i < 2; $i++) {
-            $indexBlanche = array_rand($missionsBlanches);
-            $missionBlanche = $missionsBlanches[$indexBlanche] ?? null;
-            if ($missionBlanche) {
-                $joueur->setMissionBlanche($missionBlanche);
-            }
-
-            $indexBleue = array_rand($missionsBleues);
-            $missionBleue = $missionsBleues[$indexBleue] ?? null;
-            if ($missionBleue) {
-                $joueur->setMissionBleue($missionBleue);
-            }
+        // Attribution aléatoire d'une mission blanche
+        $indexBlanche = array_rand($missionsBlanches);
+        $missionBlanche = $missionsBlanches[$indexBlanche] ?? null;
+        if ($missionBlanche) {
+            $joueur->setMissionBlanche($missionBlanche);
         }
 
+        // Attribution aléatoire d'une mission bleue au joueur
+        $indexBleue = array_rand($missionsBleues);
+        $missionBleue = $missionsBleues[$indexBleue] ?? null;
+        if ($missionBleue) {
+            $joueur->setMissionBleue($missionBleue);
+        }
+        
         $this->entityManager->persist($joueur);
         $this->entityManager->flush();
     }
 
+    // Méthode pour créer la pioche de cartes au début de la partie
     public function creerPioche(
         Partie $partie,
         CarteRepository $carteRepository,
@@ -271,10 +264,14 @@ final class DebutPartie
                 $partie->getPioche()->add($carte);
             }
         }
+
+        $this->retirerCartesPioche($partie);
+
         $entityManager->persist($partie);
         $entityManager->flush();
     }
 
+    // Méhode pour créer le domaine de la reine au début de la partie
     public function creerDomaineReine(): DomaineReine
     {
         $lumiere = new Lumiere();
@@ -292,4 +289,39 @@ final class DebutPartie
         return $domaineReine;
     }
 
+    // Méthode pour retirer les cartes de la pioche en fonction du nombre de joueurs
+    public function retirerCartesPioche(Partie $partie): void
+    {
+        $nombreJoueurs = $partie->getNombreJoueurMax();
+        $cartesPioche = $partie->getPioche()->toArray();
+        
+        switch ($nombreJoueurs) {
+            case 2:
+                $cartesAEnlever = 30;
+                break;
+            case 3:
+                $cartesAEnlever = 15;
+                break;
+            default:
+                $cartesAEnlever = 0;
+        }
+        $this->enleverCartesDePioche($partie, $cartesAEnlever);
+
+        $this->entityManager->persist($partie);
+        $this->entityManager->flush();
+    }
+    
+    // Méthode pour retirer les cartes de la pioche 
+    public function enleverCartesDePioche(Partie $partie, int $nombreCartes): void
+    {
+        $cartesPioche = $partie->getPioche()->toArray();
+        
+        for ($i = 0; $i < $nombreCartes; $i++) {
+            $index = array_rand($cartesPioche);
+            $carte = $cartesPioche[$index] ?? null;
+            if ($carte) {
+                $partie->getPioche()->removeElement($carte);
+            }
+        }
+    }
 }

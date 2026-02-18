@@ -11,6 +11,13 @@ final class FinPartie
     private $entityManager;
     private $carteRepository;
 
+    public function __construct($entityManager, $carteRepository)
+    {
+        $this->entityManager = $entityManager;
+        $this->carteRepository = $carteRepository;
+    }
+
+    // Méthode pour terminer la partie
     public function terminerPartie(Partie $partie): void
     {
             $partie->setStatus('terminée');
@@ -19,6 +26,7 @@ final class FinPartie
             $this->entityManager->flush();
     }
 
+    // Méthode pour placer les cartes espion dans leur famille respective à la fin de la partie
     public function placerEspionDansFamille(Partie $partie): void
     {
         $domaineReine = $partie->getDomaineReine();
@@ -107,6 +115,7 @@ final class FinPartie
         $this->entityManager->flush();
     }
 
+    // Méhode pour identifier les familles en lumière et en disgrâce à la fin de la partie
     public function familleEnLumière(Partie $partie, string $famille): bool
     {
         $domaineReine = $partie->getDomaineReine();
@@ -135,6 +144,7 @@ final class FinPartie
         return $oui;
     }
 
+    // Méthode pour compter le nombre de cartes d'une famille dans le domaine de la lumière
     public function compterNombreParFamilleEnLumiere(Partie $partie, string $famille): int
     {
         $domaineReine = $partie->getDomaineReine();
@@ -169,6 +179,7 @@ final class FinPartie
         return $nombre;
     }
 
+    // Méthode pour compter le nombre de cartes d'une famille dans le domaine de la disgrâce
     public function compterNombreParFamilleEnDisgrace(Partie $partie, string $famille): int
     {
         $domaineReine = $partie->getDomaineReine();
@@ -203,6 +214,7 @@ final class FinPartie
         return $nombre;
     }
 
+    // Méthode pour compter les points d'un joueur à la fin de la partie
     public function compterPoints(Joueur $joueur): int
     {
         $points = 0;
@@ -216,6 +228,7 @@ final class FinPartie
         return $points;
     }
 
+    // Méthode pour compter les points d'une famille pour un joueur à la fin de la partie
     public function compterPointsParFamilleParJoueur(Joueur $joueur, string $famille): int
     {
         $pointsParFamille = 0;
@@ -251,6 +264,7 @@ final class FinPartie
         return $pointsParFamille;
     }
 
+    // Méthode pour déterminer le gagnant de la partie
     public function gagnant(Partie $partie): ?Joueur
     {
         $gagnant = null;
