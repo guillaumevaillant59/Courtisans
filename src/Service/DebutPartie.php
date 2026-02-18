@@ -50,6 +50,7 @@ final class DebutPartie
         $joueur = new Joueur();
         $joueur->setUtilisateur($utilisateur);
         $joueur->setPartie($partie);
+        $joueur->setPosition(1);
         $partie->addJoueur($joueur);
         $partie->setStatus('en attente');
 
@@ -67,9 +68,8 @@ final class DebutPartie
         $joueur = new Joueur();
         $joueur->setUtilisateur($utilisateur);
         $joueur->setPartie($partie);
-        if (!$partie->getJoueurs()->contains($joueur) && $partie->getJoueurs()->count() < $partie->getNombreJoueurMax()) {
-            $partie->addJoueur($joueur);
-        }
+        $joueur->setPosition($partie->getJoueurs()->count() + 1);           
+        $partie->addJoueur($joueur);
         if ($partie->getJoueurs()->count() === $partie->getNombreJoueurMax()) {
             $partie->setStatus('en cours');
             $this->initialiserPartie($partie);
@@ -95,7 +95,7 @@ final class DebutPartie
         $this->entityManager->flush();
     }
 
-    // Méthod pour démarrer la partie : distribuer les cartes et attribuer les missions aux joueurs
+    // Méthode pour démarrer la partie : distribuer les cartes et attribuer les missions aux joueurs
     public function commencerPartie(Partie $partie): void
     {
         // Commencement de la partie : distribution des cartes aux joueurs.

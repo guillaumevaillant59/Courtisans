@@ -264,6 +264,218 @@ final class FinPartie
         return $pointsParFamille;
     }
 
+    // Méthode pour valider la mission blanche à la fin de la partie
+    public function validerMissionBlanche(Partie $partie, Joueur $joueur): bool
+    {
+        $missionBlanche = $joueur->getMissionBlanche();
+        $domaineJoueur = $joueur->getDomaine();
+        $position = $joueur->getPosition();
+        $numero = $missionBlanche->getId();
+        $joueurGauche = null;
+        if($position === 1) {
+            $joueurGauche = $partie->getJoueurByPosition($partie->getNombreJoueurs());
+        } else {
+            $joueurGauche = $partie->getJoueurByPosition($position - 1);
+        }
+        switch ($numero) {
+            case 1:
+                if($joueurGauche->getDomaine()->getPapillon()->count() > $joueur->getDomaine()->getPapillon()->count()) {
+                    return $true;
+                }
+                return false;
+            case 2:
+                if($joueurGauche->getDomaine()->getCrapaud()->count() > $joueur->getDomaine()->getCrapaud()->count()) {
+                    return $true;
+                }
+                return false;
+            case 3:
+                if($joueurGauche->getDomaine()->getRossignol()->count() > $joueur->getDomaine()->getRossignol()->count()) {
+                    return $true;
+                }
+                return false;
+            case 4:
+                if($joueurGauche->getDomaine()->getCerf()->count() > $joueur->getDomaine()->getCerf()->count()) {
+                    return $true;  
+                }
+                return false;
+            case 5:
+                if($joueurGauche->getDomaine()->getLapin()->count() > $joueur->getDomaine()->getLapin()->count()) {
+                    return $true;
+                }
+                return false;
+            case 6:
+                if($joueurGauche->getDomaine()->getCarpe()->count() > $joueur->getDomaine()->getCarpe()->count()) {
+                    return $true;   
+                }
+                return false;
+            case 7:
+                if($this->compterNombreNoble($joueur) >= 3) {                   
+                        return true;  
+                }
+                return false;
+            case 8:
+                if($this->compterNombreAssassin($joueur) >= 2) {                   
+                        return true;  
+                }
+                return false;
+            case 9:
+                if($this->compterNombreProtecteur($joueur) >= 4) {                   
+                        return true;  
+                }
+                return false;
+            case 10:
+                if($this->compterNombreEspion($joueur) >= 3) {                   
+                        return true;    
+                }
+                return false;
+        }
+
+    }
+
+    // Méthode pour compter le nombre de cartes noble dans le domaine d'un joueur
+    public function compterNombreNoble(Joueur $joueur): int
+    {
+        $nombreNoble = 0;
+        $cartes = array_merge(
+            $joueur->getDomaine()->getPapillon()->toArray(),
+            $joueur->getDomaine()->getCrapaud()->toArray(),
+            $joueur->getDomaine()->getRossignol()->toArray(),
+            $joueur->getDomaine()->getCerf()->toArray(),
+            $joueur->getDomaine()->getLapin()->toArray(),
+            $joueur->getDomaine()->getCarpe()->toArray()
+        );
+        foreach ($cartes as $carte) {
+            if ($carte->getRole() === 'Noble') {
+                $nombreNoble++;
+            }
+        }
+        return $nombreNoble;
+    }
+
+    // Méthode pour compter le nombre de cartes assassin dans le domaine d'un joueur
+    public function compterNombreAssassin(Joueur $joueur): int
+    {
+        $nombreAssassin = 0;
+        $cartes = array_merge(
+            $joueur->getDomaine()->getPapillon()->toArray(),
+            $joueur->getDomaine()->getCrapaud()->toArray(),
+            $joueur->getDomaine()->getRossignol()->toArray(),       
+            $joueur->getDomaine()->getCerf()->toArray(),
+            $joueur->getDomaine()->getLapin()->toArray(),
+            $joueur->getDomaine()->getCarpe()->toArray()
+        );
+        foreach ($cartes as $carte) {
+            if ($carte->getRole() === 'Assassin') {
+                $nombreAssassin++;
+            }
+        }
+        return $nombreAssassin;
+    }
+
+    // Méthode pour compter le nombre de cartes protecteur dans le domaine d'un joueur
+    public function compterNombreProtecteur(Joueur $joueur): int
+    {
+        $nombreProtecteur = 0;
+        $cartes = array_merge(
+            $joueur->getDomaine()->getPapillon()->toArray(),
+            $joueur->getDomaine()->getCrapaud()->toArray(),         
+            $joueur->getDomaine()->getRossignol()->toArray(),
+            $joueur->getDomaine()->getCerf()->toArray(),
+            $joueur->getDomaine()->getLapin()->toArray(),
+            $joueur->getDomaine()->getCarpe()->toArray()
+        );
+        foreach ($cartes as $carte) {
+            if ($carte->getRole() === 'Protecteur') {
+                $nombreProtecteur++;
+            }
+        }
+        return $nombreProtecteur;
+    }   
+
+    // Méthode pour compter le nombre de cartes espion dans le domaine d'un joueur
+    public function compterNombreEspion(Joueur $joueur): int
+    {
+        $nombreEspion = 0;
+        $cartes = array_merge(
+            $joueur->getDomaine()->getPapillon()->toArray(),
+            $joueur->getDomaine()->getCrapaud()->toArray(),
+            $joueur->getDomaine()->getRossignol()->toArray(),
+            $joueur->getDomaine()->getCerf()->toArray(),
+            $joueur->getDomaine()->getLapin()->toArray(),
+            $joueur->getDomaine()->getCarpe()->toArray()
+        );
+        foreach ($cartes as $carte) {
+            if ($carte->getRole() === 'Espion') {
+                $nombreEspion++;
+            }
+        }
+        return $nombreEspion;
+    }
+
+    // Méthode pour valider la mission bleue à la fin de la partie
+    public function validerMissionBleue(Partie $partie, Joueur $joueur): bool
+    {
+        $missionBleue = $joueur->getMissionBleue();
+        $numero = $missionBleue->getId();
+        switch ($numero) {
+            case 1:
+                if($this->familleEnLumière($partie, "Papillon")) {
+                    return true;
+                }
+                return false;
+            case 2:
+                if($this->familleEnLumière($partie, "Crapaud")) {
+                    return true;    
+                }
+                return false;
+            case 3:
+                if($this->familleEnLumière($partie, "Rossignol")) {
+                    return true;    
+                }
+                return false;
+            case 4:
+                if($this->familleEnLumière($partie, "Cerf")) {
+                    return true;    
+                }
+                return false;
+            case 5:
+                if($this->familleEnLumière($partie, "Lapin")) {
+                    return true;    
+                }
+                return false;
+            case 6:
+                if($this->familleEnLumière($partie, "Carpe")) {
+                    return true;    
+                }
+                return false;
+            case 7:
+                if($this->toutesFamillesEnDisgrace($partie)) {
+                    return true;    
+                }
+                return false;
+            case 8:
+                
+        }
+    }
+
+    // Méthode pour vérifier si tous les familles sont en disgrace à la fin de la partie
+    public function toutesFamillesEnDisgrace(Partie $partie): bool
+    {        $familles = ['Papillon', 'Crapaud', 'Rossignol', 'Cerf', 'Lapin', 'Carpe'];
+        foreach ($familles as $famille) {
+            if (!$this->familleEnLumière($partie, $famille)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Méthode pour voir si une famille a 5 cartes ou plus en disgâce à la fin de la partie
+    public function familleCinqCartesEnDisgrace(Partie $partie, string $famille): bool
+    {
+        $nombreCartesEnDisgrace = $this->compterNombreParFamilleEnDisgrace($partie, $famille);
+        return $nombreCartesEnDisgrace >= 5;
+    }
+
     // Méthode pour déterminer le gagnant de la partie
     public function gagnant(Partie $partie): ?Joueur
     {
