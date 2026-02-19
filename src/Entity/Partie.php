@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator\Regex;
 
 #[ORM\Entity(repositoryClass: PartieRepository::class)]
 class Partie
@@ -31,13 +32,7 @@ class Partie
     #[ORM\OneToMany(targetEntity: Joueur::class, mappedBy: 'partie')]
     private Collection $joueurs;
 
-    #[ORM\Column]
-    #[Assert\Length(
-        min: 2,
-        max: 5,
-        minMessage: 'Le nombre minimum de joueurs est de {{ limit }}.',
-        maxMessage: 'Le nombre maximum de joueurs est de {{ limit }}.',
-    )]
+    #[ORM\Column]     
     private ?int $nombreJoueurMax = null;
 
     #[ORM\Column(length: 10)]
