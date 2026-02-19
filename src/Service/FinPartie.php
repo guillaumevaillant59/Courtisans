@@ -115,7 +115,7 @@ final class FinPartie
         $this->entityManager->flush();
     }
 
-    // Méhode pour identifier les familles en lumière et en disgrâce à la fin de la partie
+    // Méhode pour identifier les familles en lumière à la fin de la partie
     public function familleEnLumière(Partie $partie, string $famille): bool
     {
         $domaineReine = $partie->getDomaineReine();
@@ -141,6 +141,34 @@ final class FinPartie
                 break;
         }
         
+        return $oui;
+    }
+
+    // Méthode pour identifier les familles en disgrâce à la fin de la partie
+    public function familleEnDisgrace(Partie $partie, string $famille): bool
+    {        
+        $domaineReine = $partie->getDomaineReine();
+        $oui = true;
+        switch ($famille) {
+            case 'Papillon':
+                $oui = $this->compterNombreParFamilleEnLumiere($partie, 'Papillon') - $this->compterNombreParFamilleEnDisgrace($partie, 'Papillon') < 0;
+                break;
+            case 'Crapaud':         
+                $oui = $this->compterNombreParFamilleEnLumiere($partie, 'Crapaud') - $this->compterNombreParFamilleEnDisgrace($partie, 'Crapaud') < 0;
+                break;
+            case 'Rossignol':
+                $oui = $this->compterNombreParFamilleEnLumiere($partie, 'Rossignol') - $this->compterNombreParFamilleEnDisgrace($partie, 'Rossignol') < 0;
+                break;
+            case 'Cerf':
+                $oui = $this->compterNombreParFamilleEnLumiere($partie, 'Cerf') - $this->compterNombreParFamilleEnDisgrace($partie, 'Cerf') < 0;
+                break;
+            case 'Lapin':
+                $oui = $this->compterNombreParFamilleEnLumiere($partie, 'Lapin') - $this->compterNombreParFamilleEnDisgrace($partie, 'Lapin') < 0;
+                break;
+            case 'Carpe':
+                $oui = $this->compterNombreParFamilleEnLumiere($partie, 'Carpe') - $this->compterNombreParFamilleEnDisgrace($partie, 'Carpe') < 0;
+                break;
+        }
         return $oui;
     }
 
@@ -218,14 +246,26 @@ final class FinPartie
     public function compterPoints(Joueur $joueur): int
     {
         $points = 0;
-        $points += $this->compterPointsParFamilleParJoueur($joueur, 'Papillon');
-        $points += $this->compterPointsParFamilleParJoueur($joueur, 'Crapaud');
-        $points += $this->compterPointsParFamilleParJoueur($joueur, 'Rossignol');
-        $points += $this->compterPointsParFamilleParJoueur($joueur, 'Cerf');
-        $points += $this->compterPointsParFamilleParJoueur($joueur, 'Lapin');
-        $points += $this->compterPointsParFamilleParJoueur($joueur, 'Carpe');
+        $familles = ['Papillon', 'Crapaud', 'Rossignol', 'Cerf', 'Lapin', 'Carpe'];
+        foreach ($familles as $famille) {
+            if ($this->familleEnLumière($joueur->getPartie(), $famille)) {
+                $points += $this->compterPointsParFamilleParJoueur($joueur, $famille);
+            } else if ($this->familleEnDisgrace($joueur->getPartie(), $famille)) {
+                $points -= $this->compterPointsParFamilleParJoueur($joueur, $famille);
+            } else {
+                $points += 0;   
+            }
+        }
+
+        if ($this->validerMissionBlanche($joueur->getPartie(), $joueur)) {
+            $points += 3;
+        }
+        if ($this->validerMissionBleue($joueur->getPartie(), $joueur)) {
+            $points += 3;
+        }
 
         return $points;
+        
     }
 
     // Méthode pour compter les points d'une famille pour un joueur à la fin de la partie
@@ -454,7 +494,20 @@ final class FinPartie
                 }
                 return false;
             case 8:
-                
+                if($this->familleCinqCartesEnDisgrace($partie)) {
+                    return true;    
+                }
+                return false;
+            case 9:
+                if($this->troisFamillesEnLumiere²($partie)) {                   
+                    return true;    
+                }
+                return false;
+            case 10:                    
+                if($this->deuxFamillesEnDisgrace($partie)) {
+                    return true;
+                }
+                return false;
         }
     }
 
@@ -470,10 +523,39 @@ final class FinPartie
     }
 
     // Méthode pour voir si une famille a 5 cartes ou plus en disgâce à la fin de la partie
-    public function familleCinqCartesEnDisgrace(Partie $partie, string $famille): bool
+    public function familleCinqCartesEnDisgrace(Partie $partie): bool
     {
-        $nombreCartesEnDisgrace = $this->compterNombreParFamilleEnDisgrace($partie, $famille);
-        return $nombreCartesEnDisgrace >= 5;
+        $familles = ['Papillon', 'Crapaud', 'Rossignol', 'Cerf', 'Lapin', 'Carpe'];
+        foreach ($familles as $famille) {
+            if ($this->compterNombreParFamilleEnDisgrace($partie, $famille) >= 5) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    // Méthode pour vérifier si 3 familles ou plus sont en lumière à la fin de la partie
+    public function troisFamillesEnLumiere(Partie $partie): bool
+    {        $familles = ['Papillon', 'Crapaud', 'Rossignol', 'Cerf', 'Lapin', 'Carpe'];
+        $compteur = 0;
+        foreach ($familles as $famille) {
+            if ($this->familleEnLumière($partie, $famille)) {
+                $compteur++;
+            }
+        }
+        return $compteur >= 3;
+    }
+
+    // Méthode pour vérifier si 2 familles ou moins sont en disgrâce à la fin de la partie
+    public function deuxFamillesEnDisgrace(Partie $partie): bool
+    {        $familles = ['Papillon', 'Crapaud', 'Rossignol', 'Cerf', 'Lapin', 'Carpe'];
+        $compteur = 0;
+        foreach ($familles as $famille) {
+            if (!$this->familleEnLumière($partie, $famille)) {
+                $compteur++;
+            }
+        }
+        return $compteur <= 2;
     }
 
     // Méthode pour déterminer le gagnant de la partie
