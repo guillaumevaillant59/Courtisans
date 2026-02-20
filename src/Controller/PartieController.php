@@ -14,8 +14,10 @@ use App\Service\DebutPartie;
 use App\Service\ServicePartie;
 use App\Service\FinPartie;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 #[Route('/partie')]
+#[IsGranted('ROLE_USER')]
 final class PartieController extends AbstractController
 {
     #[Route(name: 'app_partie_index', methods: ['GET'])]
@@ -35,11 +37,12 @@ final class PartieController extends AbstractController
         DebutPartie $debutPartie
         ): Response
     {
+        $partie = new Partie();
         $form = $this->createForm(PartieType::class, $partie);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $partie = $debutPartie->creerPartie($form->getData(), $user);
+            $partie = $debutPartie->creerPartie($form->getData()->getNombreJoueurMax(), $user);
             $entityManager->persist($partie);
             $entityManager->flush();
             

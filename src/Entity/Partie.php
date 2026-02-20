@@ -29,7 +29,7 @@ class Partie
     /**
      * @var Collection<int, Joueur>
      */
-    #[ORM\OneToMany(targetEntity: Joueur::class, mappedBy: 'partie')]
+    #[ORM\OneToMany(targetEntity: Joueur::class, mappedBy: 'partie', cascade: ['persist', 'remove'])]
     private Collection $joueurs;
 
     #[ORM\Column]     

@@ -4,6 +4,8 @@ namespace App\Service;
 
 use App\Entity\Partie;
 use App\Entity\Joueur;
+use App\Repository\CarteRepository;
+use Doctrine\ORM\EntityManagerInterface;
    
 
 final class FinPartie
@@ -11,7 +13,7 @@ final class FinPartie
     private $entityManager;
     private $carteRepository;
 
-    public function __construct($entityManager, $carteRepository)
+    public function __construct(EntityManagerInterface $entityManager, CarteRepository $carteRepository)
     {
         $this->entityManager = $entityManager;
         $this->carteRepository = $carteRepository;
