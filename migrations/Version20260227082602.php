@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20260212151934 extends AbstractMigration
+final class Version20260227082602 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -38,7 +38,7 @@ final class Version20260212151934 extends AbstractMigration
         $this->addSql('CREATE TABLE domainejoueur_carpe (domaine_joueur_id INT NOT NULL, carte_id INT NOT NULL, INDEX IDX_A2247E7BBF3979AC (domaine_joueur_id), INDEX IDX_A2247E7BC9C7CEB6 (carte_id), PRIMARY KEY (domaine_joueur_id, carte_id)) DEFAULT CHARACTER SET utf8mb4');
         $this->addSql('CREATE TABLE domainejoueur_espion (domaine_joueur_id INT NOT NULL, carte_id INT NOT NULL, INDEX IDX_3015B019BF3979AC (domaine_joueur_id), INDEX IDX_3015B019C9C7CEB6 (carte_id), PRIMARY KEY (domaine_joueur_id, carte_id)) DEFAULT CHARACTER SET utf8mb4');
         $this->addSql('CREATE TABLE domaine_reine (id INT AUTO_INCREMENT NOT NULL, path VARCHAR(255) NOT NULL, lumiere_id INT NOT NULL, disgrace_id INT NOT NULL, UNIQUE INDEX UNIQ_21207A9B8976801B (lumiere_id), UNIQUE INDEX UNIQ_21207A9B464D262D (disgrace_id), PRIMARY KEY (id)) DEFAULT CHARACTER SET utf8mb4');
-        $this->addSql('CREATE TABLE joueur (id INT AUTO_INCREMENT NOT NULL, points INT DEFAULT NULL, utilisateur_id INT NOT NULL, partie_id INT NOT NULL, main_id INT DEFAULT NULL, domaine_id INT DEFAULT NULL, mission_blanche_id INT DEFAULT NULL, mission_bleue_id INT DEFAULT NULL, INDEX IDX_FD71A9C5FB88E14F (utilisateur_id), INDEX IDX_FD71A9C5E075F7A4 (partie_id), UNIQUE INDEX UNIQ_FD71A9C5627EA78A (main_id), UNIQUE INDEX UNIQ_FD71A9C54272FC9F (domaine_id), INDEX IDX_FD71A9C5BBDD2EE6 (mission_blanche_id), INDEX IDX_FD71A9C54FF5B5C2 (mission_bleue_id), PRIMARY KEY (id)) DEFAULT CHARACTER SET utf8mb4');
+        $this->addSql('CREATE TABLE joueur (id INT AUTO_INCREMENT NOT NULL, points INT DEFAULT NULL, position INT NOT NULL, utilisateur_id INT NOT NULL, partie_id INT NOT NULL, main_id INT DEFAULT NULL, domaine_id INT DEFAULT NULL, mission_blanche_id INT DEFAULT NULL, mission_bleue_id INT DEFAULT NULL, INDEX IDX_FD71A9C5FB88E14F (utilisateur_id), INDEX IDX_FD71A9C5E075F7A4 (partie_id), UNIQUE INDEX UNIQ_FD71A9C5627EA78A (main_id), UNIQUE INDEX UNIQ_FD71A9C54272FC9F (domaine_id), INDEX IDX_FD71A9C5BBDD2EE6 (mission_blanche_id), INDEX IDX_FD71A9C54FF5B5C2 (mission_bleue_id), PRIMARY KEY (id)) DEFAULT CHARACTER SET utf8mb4');
         $this->addSql('CREATE TABLE lumiere (id INT AUTO_INCREMENT NOT NULL, PRIMARY KEY (id)) DEFAULT CHARACTER SET utf8mb4');
         $this->addSql('CREATE TABLE lumiere_papillons (lumiere_id INT NOT NULL, carte_id INT NOT NULL, INDEX IDX_D71DA3FE8976801B (lumiere_id), INDEX IDX_D71DA3FEC9C7CEB6 (carte_id), PRIMARY KEY (lumiere_id, carte_id)) DEFAULT CHARACTER SET utf8mb4');
         $this->addSql('CREATE TABLE lumiere_crapaud (lumiere_id INT NOT NULL, carte_id INT NOT NULL, INDEX IDX_696619198976801B (lumiere_id), INDEX IDX_69661919C9C7CEB6 (carte_id), PRIMARY KEY (lumiere_id, carte_id)) DEFAULT CHARACTER SET utf8mb4');
