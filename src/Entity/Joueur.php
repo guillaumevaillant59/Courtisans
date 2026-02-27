@@ -36,6 +36,9 @@ class Joueur
     #[ORM\Column(nullable: true)]
     private ?int $points = null;
 
+    #[ORM\Column]
+    private ?int $position = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,6 +124,18 @@ class Joueur
     public function setPoints(?int $points): static
     {
         $this->points = $points;
+
+        return $this;
+    }
+
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(int $position): static
+    {
+        $this->position = $position;
 
         return $this;
     }

@@ -23,10 +23,12 @@ final class ServicePartie
         $this->finPartie = $finPartie;
     }
 
+    // Méthode pour ajouter une carte dans le domaine de la reine (lumière ou disgrâce)
     public function ajouterCarteDansDomaineReine(Partie $partie, Carte $carte, Joueur $joueur, string $type): void
     {
         $domaineReine = $partie->getDomaineReine();
         if ($type === 'lumiere') {
+            // Ajouter la carte dans le domaine de la lumière
             if ($carte->getRole() === 'Espion') {
                 $domaineReine->getLumiere()->addEspion($carte);
             } else {
@@ -54,6 +56,7 @@ final class ServicePartie
             }
             
         } elseif ($type === 'disgrace') {
+            // Ajouter la carte dans le domaine de la disgrâce
             if ($carte->getRole() === 'Espion') {
                 $domaineReine->getDisgrace()->addEspion($carte);
             } else {
@@ -80,7 +83,8 @@ final class ServicePartie
                 }
             }            
         }
-
+        
+        // Retirer la carte de la main du joueur
         $joueur->getMain()->removeCarte($carte);
 
         $this->entityManager->persist($joueur);
@@ -153,6 +157,7 @@ final class ServicePartie
         $this->entityManager->flush();
     }
 
+    // Méthode pour ajouter une carte dans le domaine d'un joueur
     public function ajouterCarteDansDomaineJoueur(Joueur $joueurAjoutant, Joueur $joueurRecevant, Carte $carte): void
     {
         if($carte->getRole() === 'Espion') {
@@ -181,6 +186,7 @@ final class ServicePartie
             }
         }
 
+        // Retirer la carte de la main du joueur qui ajoute la carte
         $joueurAjoutant->getMain()->removeCarte($carte);
 
         $this->entityManager->persist($joueurAjoutant);
@@ -188,6 +194,7 @@ final class ServicePartie
         $this->entityManager->flush();
     }
 
+    // Méthode pour retirer une carte du domaine d'un joueur
     public function retirerCarteDuDomaineJoueur(Joueur $joueur, Carte $carte): void
     {
         if( $carte->getRole() === 'Espion') {
@@ -220,7 +227,7 @@ final class ServicePartie
         $this->entityManager->flush();
     }
 
-
+    // Méthode pour piocher une carte de la pioche de la partie
     public function piocher(Partie $partie, Joueur $joueur): ?Carte
     {
         $piocheArray = $partie->getPioche()->toArray();
