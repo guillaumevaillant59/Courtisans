@@ -62,7 +62,7 @@ final class DebutPartie
     }
 
     // Méthode pour rejoindre une partie existante
-    public function rejoindrePartie(Partie $partie, Utilisateur $utilisateur): void
+    public function rejoindrePartie(Partie $partie, Utilisateur $utilisateur): Partie
     {
         // Création du joueur qui rejoint la partie et association avec la partie
         $joueur = new Joueur();
@@ -78,6 +78,8 @@ final class DebutPartie
         $this->entityManager->persist($joueur);
         $this->entityManager->persist($partie);
         $this->entityManager->flush();
+
+        return $partie;
     }
 
     // Méthode pour initialiser la partie une fois que tous les joueurs ont rejoint

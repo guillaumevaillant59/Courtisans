@@ -19,12 +19,20 @@
                 <th>Status</th>
                 <td>{{ partie.Status }}</td>
             </tr>
+            <tr>
+                <th>Joueurs</th>
+                <td>
+                    <ul>
+                        {% for joueur in partie.joueurs %}
+                            <li>{{ joueur.utilisateur.email }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_partie_index') }}">back to list</a>
-
-    <a href="{{ path('app_partie_edit', {'id': partie.id}) }}">edit</a>
+    <a href="{{ path('app_partie_index') }}">Retourner à la liste des parties</a>
 
     {{ include('partie/_delete_form.html.twig') }}
 {% endblock %}

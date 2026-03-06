@@ -19,8 +19,24 @@
                 <td>{{ partie.nombreJoueurMax }}</td>
                 <td>{{ partie.Status }}</td>
                 <td>
-                    <a href="{{ path('app_partie_show', {'id': partie.id}) }}">Voir</a>
-                    <a href="{{ path('app_partie_edit', {'id': partie.id}) }}">Modifier</a>
+                    {% if partie.status == 'en cours' %}
+                        <a href="{{ path('app_partie_show', {'id': partie.id}) }}">Voir</a>
+                    {% else %}
+                        {% set dejaDansPartie = false %}
+
+                            {% for joueur in partie.joueurs %}
+                                {% if joueur.utilisateur == app.user %}
+                                    {% set dejaDansPartie = true %}
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if not dejaDansPartie %}
+                            <form action="{{ path('app_partie_join', {id: partie.id}) }}" method="POST">
+                                <button type="submit">Rejoindre</button>
+                            </form>
+                            {% endif %}
+                        
+                    {% endif %}
                 </td>
             </tr>
         {% else %}

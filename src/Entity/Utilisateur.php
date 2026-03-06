@@ -39,6 +39,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Joueur::class, mappedBy: 'utilisateur')]
     private Collection $joueurs;
 
+    #[ORM\Column(length: 50)]
+    private ?string $Pseudo = null;
+
     public function __construct()
     {
         $this->joueurs = new ArrayCollection();
@@ -151,6 +154,18 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
                 $joueur->setUtilisateur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->Pseudo;
+    }
+
+    public function setPseudo(string $Pseudo): static
+    {
+        $this->Pseudo = $Pseudo;
 
         return $this;
     }

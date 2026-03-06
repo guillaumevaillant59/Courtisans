@@ -310,44 +310,43 @@ final class FinPartie
     public function validerMissionBlanche(Partie $partie, Joueur $joueur): bool
     {
         $missionBlanche = $joueur->getMissionBlanche();
-        $domaineJoueur = $joueur->getDomaine();
         $position = $joueur->getPosition();
-        $numero = $missionBlanche->getId();
+        $numero = $missionBlanche->getNumero();
         $joueurGauche = null;
         if($position === 1) {
-            $joueurGauche = $partie->getJoueurByPosition($partie->getNombreJoueurs());
+            $joueurGauche = $partie->getJoueurs()[$partie->getNombreJoueurMax()];
         } else {
-            $joueurGauche = $partie->getJoueurByPosition($position - 1);
+            $joueurGauche = $partie->getJoueurs()[$position - 1];
         }
         switch ($numero) {
             case 1:
                 if($joueurGauche->getDomaine()->getPapillon()->count() > $joueur->getDomaine()->getPapillon()->count()) {
-                    return $true;
+                    return true;
                 }
                 return false;
             case 2:
                 if($joueurGauche->getDomaine()->getCrapaud()->count() > $joueur->getDomaine()->getCrapaud()->count()) {
-                    return $true;
+                    return true;
                 }
                 return false;
             case 3:
                 if($joueurGauche->getDomaine()->getRossignol()->count() > $joueur->getDomaine()->getRossignol()->count()) {
-                    return $true;
+                    return true;
                 }
                 return false;
             case 4:
                 if($joueurGauche->getDomaine()->getCerf()->count() > $joueur->getDomaine()->getCerf()->count()) {
-                    return $true;  
+                    return true;  
                 }
                 return false;
             case 5:
                 if($joueurGauche->getDomaine()->getLapin()->count() > $joueur->getDomaine()->getLapin()->count()) {
-                    return $true;
+                    return true;
                 }
                 return false;
             case 6:
                 if($joueurGauche->getDomaine()->getCarpe()->count() > $joueur->getDomaine()->getCarpe()->count()) {
-                    return $true;   
+                    return true;   
                 }
                 return false;
             case 7:
@@ -369,6 +368,8 @@ final class FinPartie
                 if($this->compterNombreEspion($joueur) >= 3) {                   
                         return true;    
                 }
+                return false;
+            default:
                 return false;
         }
 
@@ -458,7 +459,7 @@ final class FinPartie
     public function validerMissionBleue(Partie $partie, Joueur $joueur): bool
     {
         $missionBleue = $joueur->getMissionBleue();
-        $numero = $missionBleue->getId();
+        $numero = $missionBleue->getNumero();
         switch ($numero) {
             case 1:
                 if($this->familleEnLumière($partie, "Papillon")) {
@@ -501,7 +502,7 @@ final class FinPartie
                 }
                 return false;
             case 9:
-                if($this->troisFamillesEnLumiere²($partie)) {                   
+                if($this->troisFamillesEnLumiere($partie)) {                   
                     return true;    
                 }
                 return false;
@@ -509,6 +510,8 @@ final class FinPartie
                 if($this->deuxFamillesEnDisgrace($partie)) {
                     return true;
                 }
+                return false;
+            default:
                 return false;
         }
     }

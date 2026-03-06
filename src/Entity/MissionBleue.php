@@ -19,6 +19,9 @@ class MissionBleue
     #[ORM\Column(length: 255)]
     private ?string $path = null;
 
+    #[ORM\Column]
+    private ?int $numero = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +47,18 @@ class MissionBleue
     public function setPath(string $path): static
     {
         $this->path = $path;
+
+        return $this;
+    }
+
+    public function getNumero(): ?int
+    {
+        return $this->numero;
+    }
+
+    public function setNumero(int $numero): static
+    {
+        $this->numero = $numero;
 
         return $this;
     }

@@ -3,6 +3,13 @@
     <nav id="menu">        
         <a href="{{ path('app_accueil') }}">Accueil</a>
         <a href="{{ path('app_partie_index') }}">Parties</a>
+        {% if app.user %}
+            {#<a href="{{ path('app_utilisateur_show', {'id': utilisateur.id}) }}">Profil</a>#}
+            <a href="{{ path('app_logout') }}">Déconnexion</a>
+        {% else %}
+            <a href="{{ path('app_login') }}">Connexion</a>
+            <a href="{{ path('app_inscription') }}">Inscription</a>
+        {% endif %}
     </nav>
 </header>
 

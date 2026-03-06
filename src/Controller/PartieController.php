@@ -63,6 +63,17 @@ final class PartieController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/join', name: 'app_partie_join', methods: ['POST'])]
+    public function join(Partie $partie, EntityManagerInterface $entityManager, #[CurrentUser] $user, DebutPartie $debutPartie): Response
+    {
+        if (!$partie->getJoueurs()->contains($user) && count($partie->getJoueurs()) < $partie->getNombreJoueurMax()) {
+            $partie = $debutPartie->rejoindrePartie($partie, $user);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_partie_show', ['id' => $partie->getId()]);
+    }
+
     #[Route('/{id}/edit', name: 'app_partie_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Partie $partie, EntityManagerInterface $entityManager): Response
     {
