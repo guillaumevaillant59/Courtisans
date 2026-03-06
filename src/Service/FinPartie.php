@@ -462,37 +462,37 @@ final class FinPartie
         $numero = $missionBleue->getNumero();
         switch ($numero) {
             case 1:
-                if($this->familleEnLumière($partie, "Papillon")) {
+                if(!$this->familleEnLumière($partie, "Papillon")) {
                     return true;
                 }
                 return false;
             case 2:
-                if($this->familleEnLumière($partie, "Crapaud")) {
+                if(!$this->familleEnLumière($partie, "Crapaud")) {
                     return true;    
                 }
                 return false;
             case 3:
-                if($this->familleEnLumière($partie, "Rossignol")) {
+                if(!$this->familleEnLumière($partie, "Rossignol")) {
                     return true;    
                 }
                 return false;
             case 4:
-                if($this->familleEnLumière($partie, "Cerf")) {
+                if(!$this->familleEnLumière($partie, "Cerf")) {
                     return true;    
                 }
                 return false;
             case 5:
-                if($this->familleEnLumière($partie, "Lapin")) {
+                if(!$this->familleEnLumière($partie, "Lapin")) {
                     return true;    
                 }
                 return false;
             case 6:
-                if($this->familleEnLumière($partie, "Carpe")) {
+                if(!$this->familleEnLumière($partie, "Carpe")) {
                     return true;    
                 }
                 return false;
             case 7:
-                if($this->toutesFamillesEnDisgrace($partie)) {
+                if($this->toutesFamillesCarteEnDisgrace($partie)) {
                     return true;    
                 }
                 return false;
@@ -517,14 +517,14 @@ final class FinPartie
     }
 
     // Méthode pour vérifier si tous les familles sont en disgrace à la fin de la partie
-    public function toutesFamillesEnDisgrace(Partie $partie): bool
+    public function toutesFamillesCarteEnDisgrace(Partie $partie): bool
     {        $familles = ['Papillon', 'Crapaud', 'Rossignol', 'Cerf', 'Lapin', 'Carpe'];
         foreach ($familles as $famille) {
-            if (!$this->familleEnLumière($partie, $famille)) {
-                return false;
+            if ($this->compterNombreParFamilleEnDisgrace($partie, $famille)>=1) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     // Méthode pour voir si une famille a 5 cartes ou plus en disgâce à la fin de la partie
