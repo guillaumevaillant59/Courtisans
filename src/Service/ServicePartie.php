@@ -235,15 +235,17 @@ final class ServicePartie
             // La pioche est vide — terminer la partie via le service dédié
             $this->finPartie->terminerPartie($partie);
             return null;
-        }
-        for ($i = 0; $i < 3; $i++) { 
-            $index = array_rand($piocheArray);
-            $carte = $piocheArray[$index];
-            if ($carte) {
-                $joueur->getMain()->addCarte($carte);
-                $partie->getPioche()->removeElement($carte);
+        } else {
+            for ($i = 0; $i < 3; $i++) { 
+                $index = array_rand($piocheArray);
+                $carte = $piocheArray[$index];
+                if ($carte) {
+                    $joueur->getMain()->addCarte($carte);
+                    $partie->getPioche()->removeElement($carte);
+                }
             }
         }
+        
 
         $this->entityManager->persist($joueur);
         $this->entityManager->persist($partie);

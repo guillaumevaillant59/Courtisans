@@ -29,8 +29,33 @@
                     </ul>
                 </td>
             </tr>
+            <tr>
+            <th>Carte</th>
+            {% for joueur in partie.joueurs %}
+                    <tr>
+                        <td>{{ joueur.utilisateur.pseudo }}</td>
+                        <td>
+                            {% for carte in joueur.main.cartes %}
+                                <ul>
+                                    <li>{{ carte.role }} - {{ carte.famille }}</li>
+                                    <img src="{{  carte.path  }}" alt="{{ carte.role }} - {{ carte.famille }}">
+                                </ul>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tr>
         </tbody>
     </table>
+    {% if partie.status == 'en cours' %}
+        <table class="table">
+            <thead>
+                
+            </thead>
+            <tbody>
+                
+            </tbody>
+    {% endif %}
 
     <a href="{{ path('app_partie_index') }}">Retourner à la liste des parties</a>
 

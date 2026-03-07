@@ -21,10 +21,10 @@ class Joueur
     #[ORM\JoinColumn(nullable: false)]
     private ?Partie $partie = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(cascade: ['persist', 'remove'], orphanRemoval: true)]
     private ?MainJoueur $main = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(cascade: ['persist', 'remove'], orphanRemoval: true)]
     private ?DomaineJoueur $domaine = null;
 
     #[ORM\ManyToOne]
