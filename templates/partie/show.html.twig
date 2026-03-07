@@ -38,7 +38,7 @@
                             {% for carte in joueur.main.cartes %}
                                 <ul>
                                     <li>{{ carte.role }} - {{ carte.famille }}</li>
-                                    <img src="{{  carte.path  }}" alt="{{ carte.role }} - {{ carte.famille }}">
+                                    <img src="{{ asset(carte.path) }}" alt="{{ carte.role }} - {{ carte.famille }}">
                                 </ul>
                             {% endfor %}
                         </td>
