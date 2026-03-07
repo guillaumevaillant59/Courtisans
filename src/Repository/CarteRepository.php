@@ -16,6 +16,18 @@ class CarteRepository extends ServiceEntityRepository
         parent::__construct($registry, Carte::class);
     }
 
+    public function findByFamilleAndRole($famille, $role)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.famille = :famille')
+            ->andWhere('c.role = :role')
+            ->setParameter('famille', $famille)
+            ->setParameter('role', $role)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     //    /**
     //     * @return Carte[] Returns an array of Carte objects
     //     */

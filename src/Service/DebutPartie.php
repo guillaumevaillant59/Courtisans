@@ -141,127 +141,127 @@ final class DebutPartie
         EntityManagerInterface $entityManager
     ): void {
         for($i=0; $i<4; $i++) {
-            $carte = $carteRepository->find(1);
+            $carte = $carteRepository->findByFamilleAndRole('Papillon', 'Normal');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(2);
+            $carte = $carteRepository->findByFamilleAndRole('Papillon', 'Noble');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(6);
+            $carte = $carteRepository->findByFamilleAndRole('Crapaud', 'Normal');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(7);
+            $carte = $carteRepository->findByFamilleAndRole('Crapaud', 'Noble');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(11);
+            $carte = $carteRepository->findByFamilleAndRole('Rossignol', 'Normal');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(12);
+            $carte = $carteRepository->findByFamilleAndRole('Rossignol', 'Noble');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(16);
+            $carte = $carteRepository->findByFamilleAndRole('Cerf', 'Normal');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(17);
+            $carte = $carteRepository->findByFamilleAndRole('Cerf', 'Noble');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(21);
+            $carte = $carteRepository->findByFamilleAndRole('Lapin', 'Normal');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(22);
+            $carte = $carteRepository->findByFamilleAndRole('Lapin', 'Noble');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(26);
+            $carte = $carteRepository->findByFamilleAndRole('Carpe', 'Normal');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(27);
+            $carte = $carteRepository->findByFamilleAndRole('Carpe', 'Noble');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
         }
         for($j=0; $j<3; $j++) {
-            $carte = $carteRepository->find(4);
+            $carte = $carteRepository->findByFamilleAndRole('Papillon', 'Protecteur');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(9);
+            $carte = $carteRepository->findByFamilleAndRole('Crapaud', 'Protecteur');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(14);
+            $carte = $carteRepository->findByFamilleAndRole('Rossignol', 'Protecteur');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(19);
+            $carte = $carteRepository->findByFamilleAndRole('Cerf', 'Protecteur');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(24);
+            $carte = $carteRepository->findByFamilleAndRole('Lapin', 'Protecteur');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(29);
+            $carte = $carteRepository->findByFamilleAndRole('Carpe', 'Protecteur');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
         }
         for($k=0; $k<2; $k++) {
-            $carte = $carteRepository->find(3);
+            $carte = $carteRepository->findByFamilleAndRole('Papillon', 'Assassin');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(5);
+            $carte = $carteRepository->findByFamilleAndRole('Papillon', 'Espion');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(8);
+            $carte = $carteRepository->findByFamilleAndRole('Crapaud', 'Assassin');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(10);
+            $carte = $carteRepository->findByFamilleAndRole('Crapaud', 'Espion');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(13);
+            $carte = $carteRepository->findByFamilleAndRole('Rossignol', 'Assassin');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(15);
+            $carte = $carteRepository->findByFamilleAndRole('Rossignol', 'Espion');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(18);
+            $carte = $carteRepository->findByFamilleAndRole('Cerf', 'Assassin');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(20);
+            $carte = $carteRepository->findByFamilleAndRole('Cerf', 'Espion');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(23);
+            $carte = $carteRepository->findByFamilleAndRole('Lapin', 'Assassin');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(25);
+            $carte = $carteRepository->findByFamilleAndRole('Lapin', 'Espion');
+            if ($carte) {
+                $partie->getPioche()->add($carte);
+            }            
+            $carte = $carteRepository->findByFamilleAndRole('Carpe', 'Assassin');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
-            $carte = $carteRepository->find(28);
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->find(30);
+            $carte = $carteRepository->findByFamilleAndRole('Carpe', 'Espion');
             if ($carte) {
                 $partie->getPioche()->add($carte);
             }
