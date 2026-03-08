@@ -30,33 +30,35 @@
                 </td>
             </tr>
             <tr>
-            <th>Carte</th>
-            {% for joueur in partie.joueurs %}
-                    <tr>
-                        <td>{{ joueur.utilisateur.pseudo }}</td>
-                        <td>
-                            {% for carte in joueur.main.cartes %}
-                                <ul>
-                                    <li>{{ carte.role }} - {{ carte.famille }}</li>
-                                    <img src="{{ asset(carte.path) }}" alt="{{ carte.role }} - {{ carte.famille }}">
-                                </ul>
-                            {% endfor %}
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tr>
+            {% if partie.Status === 'en cours' %}            
+                <th>Carte</th>
+                {% for joueur in partie.joueurs %}
+                        <tr>
+                            <td>{{ joueur.utilisateur.pseudo }}</td>
+                            <td>
+                                {% for carte in joueur.main.cartes %}
+                                    <ul>
+                                        <li>{{ carte.role }} - {{ carte.famille }}</li>
+                                        <img class="carte"src="{{ asset(carte.path) }}" alt="{{ carte.role }} - {{ carte.famille }}">
+                                    </ul>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                <img class="mission" src="{{ asset(joueur.missionBlanche.path) }}" alt="{{ joueur.missionBlanche.objectif }}">
+                            </td>
+                            <td>
+                                <img class="mission" src="{{ asset(joueur.missionBleue.path) }}" alt="{{ joueur.missionBleue.objectif }}">
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th>Pioche</th>
+                    <td>{{ partie.pioche|length }}</td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
-    {% if partie.status == 'en cours' %}
-        <table class="table">
-            <thead>
-                
-            </thead>
-            <tbody>
-                
-            </tbody>
-    {% endif %}
-
     <a href="{{ path('app_partie_index') }}">Retourner à la liste des parties</a>
 
     {{ include('partie/_delete_form.html.twig') }}

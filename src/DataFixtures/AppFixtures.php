@@ -21,157 +21,192 @@ class AppFixtures extends Fixture
     }
     public function load(ObjectManager $manager): void
     {
-        $carte1= new Carte();
-        $carte1->setFamille("Papillon");
-        $carte1->setRole("Normal");
-        $carte1->setpath("image/papillons/papillon_normal.jpg");
-        $carte2= new Carte();
-        $carte2->setFamille("Papillon");
-        $carte2->setRole("Noble");
-        $carte2->setpath("image/papillons/papillon_noble.jpg");
-        $carte3= new Carte();
-        $carte3->setFamille("Papillon");
-        $carte3->setRole("Assassin");
-        $carte3->setpath("image/papillons/papillon_assassin.jpg");
-        $carte4= new Carte();
-        $carte4->setFamille("Papillon");
-        $carte4->setRole("Protecteur");
-        $carte4->setpath("image/papillons/papillon_protecteur.jpg");
-        $carte5= new Carte();
-        $carte5->setFamille("Papillon");
-        $carte5->setRole("Espion");
-        $carte5->setpath("image/papillons/papillon_espion.jpg");
-        $carte6= new Carte();
-        $carte6->setFamille("Crapaud");
-        $carte6->setRole("Normal");
-        $carte6->setpath("image/crapauds/crapaud_normal.jpg");
-        $carte7= new Carte();
-        $carte7->setFamille("Crapaud");
-        $carte7->setRole("Noble");
-        $carte7->setpath("image/crapauds/crapaud_noble.jpg");
-        $carte8= new Carte();
-        $carte8->setFamille("Crapaud");
-        $carte8->setRole("Assassin");
-        $carte8->setpath("image/crapauds/crapaud_assassin.jpg");
-        $carte9= new Carte();
-        $carte9->setFamille("Crapaud");
-        $carte9->setRole("Protecteur");
-        $carte9->setpath("image/crapauds/crapaud_protecteur.jpg");
-        $carte10= new Carte();
-        $carte10->setFamille("Crapaud");
-        $carte10->setRole("Espion");
-        $carte10->setpath("image/crapauds/crapaud_espion.jpg");
-        $carte11= new Carte();
-        $carte11->setFamille("Rossignol");
-        $carte11->setRole("Normal");
-        $carte11->setpath("image/rossignols/rossignol_normal.jpg");
-        $carte12= new Carte();
-        $carte12->setFamille("Rossignol");
-        $carte12->setRole("Noble");
-        $carte12->setpath("image/rossignols/rossignol_noble.jpg");
-        $carte13= new Carte();
-        $carte13->setFamille("Rossignol");
-        $carte13->setRole("Assassin");  
-        $carte13->setpath("image/rossignols/rossignol_assassin.jpg");
-        $carte14= new Carte();
-        $carte14->setFamille("Rossignol");
-        $carte14->setRole("Protecteur");
-        $carte14->setpath("image/rossignols/rossignol_protecteur.jpg");
-        $carte15= new Carte();
-        $carte15->setFamille("Rossignol");
-        $carte15->setRole("Espion");
-        $carte15->setpath("image/rossignols/rossignol_espion.jpg");
-        $carte16= new Carte();
-        $carte16->setFamille("Cerf");
-        $carte16->setRole("Normal");
-        $carte16->setpath("image/cerfs/cerf_normal.jpg");
-        $carte17= new Carte();
-        $carte17->setFamille("Cerf");
-        $carte17->setRole("Noble");
-        $carte17->setpath("image/cerfs/cerf_noble.jpg");
-        $carte18= new Carte();
-        $carte18->setFamille("Cerf");
-        $carte18->setRole("Assassin");
-        $carte18->setpath("image/cerfs/cerf_assassin.jpg");
-        $carte19= new Carte();
-        $carte19->setFamille("Cerf");
-        $carte19->setRole("Protecteur");
-        $carte19->setpath("image/cerfs/cerf_protecteur.jpg");
-        $carte20= new Carte();
-        $carte20->setFamille("Cerf");
-        $carte20->setRole("Espion");
-        $carte20->setpath("image/cerfs/cerf_espion.jpg");
-        $carte21= new Carte();
-        $carte21->setFamille("Lapin");
-        $carte21->setRole("Normal");
-        $carte21->setpath("image/lapins/lapin_normal.jpg");
-        $carte22= new Carte();
-        $carte22->setFamille("Lapin");
-        $carte22->setRole("Noble");
-        $carte22->setpath("image/lapins/lapin_noble.jpg");
-        $carte23= new Carte();
-        $carte23->setFamille("Lapin");
-        $carte23->setRole("Assassin");
-        $carte23->setpath("image/lapins/lapin_assassin.jpg");
-        $carte24= new Carte();
-        $carte24->setFamille("Lapin");
-        $carte24->setRole("Protecteur");
-        $carte24->setpath("image/lapins/lapin_protecteur.jpg");
-        $carte25= new Carte();
-        $carte25->setFamille("Lapin");
-        $carte25->setRole("Espion");
-        $carte25->setpath("image/lapins/lapin_espion.jpg");
-        $carte26= new Carte();
-        $carte26->setFamille("Carpe");
-        $carte26->setRole("Normal");
-        $carte26->setpath("image/carpes/carpe_normal.jpg");
-        $carte27= new Carte();
-        $carte27->setFamille("Carpe");
-        $carte27->setRole("Noble");
-        $carte27->setpath("image/carpes/carpe_noble.jpg");
-        $carte28= new Carte();
-        $carte28->setFamille("Carpe");
-        $carte28->setRole("Assassin");
-        $carte28->setpath("image/carpes/carpe_assassin.jpg");
-        $carte29= new Carte();
-        $carte29->setFamille("Carpe");
-        $carte29->setRole("Protecteur");
-        $carte29->setpath("image/carpes/carpe_protecteur.jpg");
-        $carte30= new Carte();
-        $carte30->setFamille("Carpe");
-        $carte30->setRole("Espion");
-        $carte30->setpath("image/carpes/carpe_espion.jpg");
-        $manager->persist($carte1);
-        $manager->persist($carte2);
-        $manager->persist($carte3);
-        $manager->persist($carte4);
-        $manager->persist($carte5);
-        $manager->persist($carte6);
-        $manager->persist($carte7);
-        $manager->persist($carte8);
-        $manager->persist($carte9);
-        $manager->persist($carte10);
-        $manager->persist($carte11);
-        $manager->persist($carte12);
-        $manager->persist($carte13);
-        $manager->persist($carte14);
-        $manager->persist($carte15);
-        $manager->persist($carte16);
-        $manager->persist($carte17);
-        $manager->persist($carte18);
-        $manager->persist($carte19);
-        $manager->persist($carte20);
-        $manager->persist($carte21);
-        $manager->persist($carte22);
-        $manager->persist($carte23);
-        $manager->persist($carte24);
-        $manager->persist($carte25);
-        $manager->persist($carte26);
-        $manager->persist($carte27);
-        $manager->persist($carte28);
-        $manager->persist($carte29);
-        $manager->persist($carte30);
+        for($i=0; $i<4; $i++){
+            $carte1= new Carte();
+            $carte1->setFamille("Papillon");
+            $carte1->setRole(role: "Normal");
+            $carte1->setpath("image/papillons/papillon_normal.jpg");
+            $manager->persist($carte1);
 
+            $carte2= new Carte();
+            $carte2->setFamille("Papillon");
+            $carte2->setRole("Noble");
+            $carte2->setpath("image/papillons/papillon_noble.jpg");
+            $manager->persist($carte2);
+
+            $carte6= new Carte();
+            $carte6->setFamille("Crapaud");
+            $carte6->setRole("Normal");
+            $carte6->setpath("image/crapauds/crapaud_normal.jpg");
+            $manager->persist($carte6);
+
+            $carte7= new Carte();
+            $carte7->setFamille("Crapaud");
+            $carte7->setRole("Noble");
+            $carte7->setpath("image/crapauds/crapaud_noble.jpg");
+            $manager->persist($carte7);
+
+            $carte11= new Carte();
+            $carte11->setFamille("Rossignol");
+            $carte11->setRole("Normal");
+            $carte11->setpath("image/rossignols/rossignol_normal.jpg");
+            $manager->persist($carte11);
+
+            $carte12= new Carte();
+            $carte12->setFamille("Rossignol");
+            $carte12->setRole("Noble");
+            $carte12->setpath("image/rossignols/rossignol_noble.jpg");
+            $manager->persist($carte12);
+
+            $carte16= new Carte();
+            $carte16->setFamille("Cerf");
+            $carte16->setRole("Normal");
+            $carte16->setpath("image/cerfs/cerf_normal.jpg");
+            $manager->persist($carte16);
+
+            $carte17= new Carte();
+            $carte17->setFamille("Cerf");
+            $carte17->setRole("Noble");
+            $carte17->setpath("image/cerfs/cerf_noble.jpg");
+            $manager->persist($carte17);
+
+            $carte21= new Carte();
+            $carte21->setFamille("Lapin");
+            $carte21->setRole("Normal");
+            $carte21->setpath("image/lapins/lapin_normal.jpg");
+            $manager->persist($carte21);
+
+            $carte22= new Carte();
+            $carte22->setFamille("Lapin");
+            $carte22->setRole("Noble");
+            $carte22->setpath("image/lapins/lapin_noble.jpg");
+            $manager->persist($carte22);
+
+            $carte26= new Carte();
+            $carte26->setFamille("Carpe");
+            $carte26->setRole("Normal");
+            $carte26->setpath("image/carpes/carpe_normal.jpg");
+            $manager->persist($carte26);
+
+            $carte27= new Carte();
+            $carte27->setFamille("Carpe");
+            $carte27->setRole("Noble");
+            $carte27->setpath("image/carpes/carpe_noble.jpg");
+            $manager->persist($carte27);
+        }
+
+        for($i=0; $i<3; $i++){
+            $carte4= new Carte();
+            $carte4->setFamille("Papillon");
+            $carte4->setRole("Protecteur");
+            $carte4->setpath("image/papillons/papillon_protecteur.jpg");
+            $manager->persist($carte4);
+
+            $carte9= new Carte();
+            $carte9->setFamille("Crapaud");
+            $carte9->setRole("Protecteur");
+            $carte9->setpath("image/crapauds/crapaud_protecteur.jpg");
+            $manager->persist($carte9);
+
+            $carte14= new Carte();
+            $carte14->setFamille("Rossignol");
+            $carte14->setRole("Protecteur");
+            $carte14->setpath("image/rossignols/rossignol_protecteur.jpg");
+            $manager->persist($carte14);
+
+            $carte19= new Carte();
+            $carte19->setFamille("Cerf");
+            $carte19->setRole("Protecteur");
+            $carte19->setpath("image/cerfs/cerf_protecteur.jpg");
+            $manager->persist($carte19);
+
+            $carte24= new Carte();
+            $carte24->setFamille("Lapin");
+            $carte24->setRole("Protecteur");
+            $carte24->setpath("image/lapins/lapin_protecteur.jpg");
+            $manager->persist($carte24);
+
+            $carte29= new Carte();
+            $carte29->setFamille("Carpe");
+            $carte29->setRole("Protecteur");
+            $carte29->setpath("image/carpes/carpe_protecteur.jpg");
+            $manager->persist($carte29);
+        }
+
+        for($i=0; $i<2; $i++){
+            $carte3= new Carte();
+            $carte3->setFamille("Papillon");
+            $carte3->setRole("Assassin");
+            $carte3->setpath("image/papillons/papillon_assassin.jpg");
+            $manager->persist($carte3);
+            
+            $carte5= new Carte();
+            $carte5->setFamille("Papillon");
+            $carte5->setRole("Espion");
+            $carte5->setpath("image/papillons/papillon_espion.jpg");
+            $manager->persist($carte5);
+
+            $carte8= new Carte();
+            $carte8->setFamille("Crapaud");
+            $carte8->setRole("Assassin");
+            $carte8->setpath("image/crapauds/crapaud_assassin.jpg");
+            $manager->persist($carte8);
+
+            $carte10= new Carte();
+            $carte10->setFamille("Crapaud");
+            $carte10->setRole("Espion");
+            $carte10->setpath("image/crapauds/crapaud_espion.jpg");
+            $manager->persist($carte10);
+
+            $carte13= new Carte();
+            $carte13->setFamille("Rossignol");
+            $carte13->setRole("Assassin");  
+            $carte13->setpath("image/rossignols/rossignol_assassin.jpg");
+            $manager->persist($carte13);
+
+            $carte15= new Carte();
+            $carte15->setFamille("Rossignol");
+            $carte15->setRole("Espion");
+            $carte15->setpath("image/rossignols/rossignol_espion.jpg");
+            $manager->persist($carte15);
+
+            $carte18= new Carte();
+            $carte18->setFamille("Cerf");
+            $carte18->setRole("Assassin");
+            $carte18->setpath("image/cerfs/cerf_assassin.jpg");
+            $manager->persist($carte18);
+
+            $carte20= new Carte();
+            $carte20->setFamille("Cerf");
+            $carte20->setRole("Espion");
+            $carte20->setpath("image/cerfs/cerf_espion.jpg");
+            $manager->persist($carte20);
+
+            $carte23= new Carte();
+            $carte23->setFamille("Lapin");
+            $carte23->setRole("Assassin");
+            $carte23->setpath("image/lapins/lapin_assassin.jpg");
+            $manager->persist($carte23);
+
+            $carte25= new Carte();
+            $carte25->setFamille("Lapin");
+            $carte25->setRole("Espion");
+            $carte25->setpath("image/lapins/lapin_espion.jpg");
+            $manager->persist($carte25);
+
+            $carte28= new Carte();
+            $carte28->setFamille("Carpe");
+            $carte28->setRole("Assassin");
+            $carte28->setpath("image/carpes/carpe_assassin.jpg");
+            $manager->persist($carte28);
+            
+            $carte30= new Carte();
+            $carte30->setFamille("Carpe");
+            $carte30->setRole("Espion");
+            $carte30->setpath("image/carpes/carpe_espion.jpg");
+            $manager->persist($carte30);        
+        }   
+        
         $missionBlanche1= new MissionBlanche();
         $missionBlanche1->setObjectif("Moins de papillon que le voisin de gauche");
         $missionBlanche1->setNumero(1);

@@ -19,9 +19,9 @@
                 <td>{{ partie.nombreJoueurMax }}</td>
                 <td>{{ partie.Status }}</td>
                 <td>
-                    {% if partie.status == 'en cours' %}
+                    
                         <a href="{{ path('app_partie_show', {'id': partie.id}) }}">Voir</a>
-                    {% else %}
+                    
                         {% set dejaDansPartie = false %}
 
                             {% for joueur in partie.joueurs %}
@@ -36,7 +36,7 @@
                             </form>
                             {% endif %}
                         
-                    {% endif %}
+                    
                 </td>
             </tr>
         {% else %}

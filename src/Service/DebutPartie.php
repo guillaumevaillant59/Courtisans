@@ -109,34 +109,38 @@ final class DebutPartie
             // Distribuer des cartes au joueur. 
             $this->servicePartie->piocher($partie, $joueur);
             // Attribuer des missions au joueur.
-            $this->attribuerMissions($partie, $joueur);
+            $this->attribuerMissions($partie);
             $this->entityManager->persist($joueur);
         }
     }
 
     // Méthode pour attribuer les missions aux joueurs
-    public function attribuerMissions(Partie $partie, Joueur $joueur): void
+    public function attribuerMissions(Partie $partie): void
     {
         // Récupération de toutes les missions disponibles
         $missionsBlanches = $this->missionBlancheRepository->findAll();
         $missionsBleues = $this->missionBleueRepository->findAll();
 
-        // Attribution aléatoire d'une mission blanche
-        $indexBlanche = array_rand($missionsBlanches);
-        $missionBlanche = $missionsBlanches[$indexBlanche] ?? null;
-        if ($missionBlanche) {
+        // Attribution aléatoire d'une mission blanche aux joueurs
+        foreach ($partie->getJoueurs() as $joueur) {
+            $indexBlanche = array_rand($missionsBlanches);
+            $missionBlanche = $missionsBlanches[$indexBlanche] ?? null;
             $joueur->setMissionBlanche($missionBlanche);
+            unset($missionsBlanches[$indexBlanche]);
+            $this->entityManager->persist($joueur);
         }
 
-        // Attribution aléatoire d'une mission bleue au joueur
-        $indexBleue = array_rand($missionsBleues);
-        $missionBleue = $missionsBleues[$indexBleue] ?? null;
-        if ($missionBleue) {
+        // Attribution aléatoire d'une mission bleue aux joueurs
+        foreach ($partie->getJoueurs() as $joueur) {
+            $indexBleue = array_rand($missionsBleues);
+            $missionBleue = $missionsBleues[$indexBleue] ?? null;
             $joueur->setMissionBleue($missionBleue);
+            unset($missionsBleues[$indexBleue]);            
+            $this->entityManager->persist($joueur);
         }
-        
-        $this->entityManager->persist($joueur);
+
         $this->entityManager->flush();
+        
     }
 
     // Méthode pour créer la pioche de cartes au début de la partie
@@ -145,131 +149,9 @@ final class DebutPartie
         CarteRepository $carteRepository,
         EntityManagerInterface $entityManager
     ): void {
-        for($i=0; $i<4; $i++) {
-            $carte = $carteRepository->findOneByFamilleAndRole('Papillon', 'Normal');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Papillon', 'Noble');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Crapaud', 'Normal');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Crapaud', 'Noble');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Rossignol', 'Normal');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Rossignol', 'Noble');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Cerf', 'Normal');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Cerf', 'Noble');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Lapin', 'Normal');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Lapin', 'Noble');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Carpe', 'Normal');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Carpe', 'Noble');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-        }
-        for($j=0; $j<3; $j++) {
-            $carte = $carteRepository->findOneByFamilleAndRole('Papillon', 'Protecteur');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Crapaud', 'Protecteur');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Rossignol', 'Protecteur');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Cerf', 'Protecteur');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Lapin', 'Protecteur');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Carpe', 'Protecteur');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-        }
-        for($k=0; $k<2; $k++) {
-            $carte = $carteRepository->findOneByFamilleAndRole('Papillon', 'Assassin');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Papillon', 'Espion');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Crapaud', 'Assassin');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Crapaud', 'Espion');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Rossignol', 'Assassin');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Rossignol', 'Espion');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Cerf', 'Assassin');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Cerf', 'Espion');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Lapin', 'Assassin');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Lapin', 'Espion');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }            
-            $carte = $carteRepository->findOneByFamilleAndRole('Carpe', 'Assassin');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
-            $carte = $carteRepository->findOneByFamilleAndRole('Carpe', 'Espion');
-            if ($carte) {
-                $partie->getPioche()->add($carte);
-            }
+        $cartes = $carteRepository->findAll();
+        foreach ($cartes as $carte) {
+            $partie->addPioche($carte);
         }
 
         $this->retirerCartesPioche($partie);
@@ -300,7 +182,6 @@ final class DebutPartie
     public function retirerCartesPioche(Partie $partie): void
     {
         $nombreJoueurs = $partie->getNombreJoueurMax();
-        $cartesPioche = $partie->getPioche()->toArray();
         
         switch ($nombreJoueurs) {
             case 2:
@@ -309,6 +190,8 @@ final class DebutPartie
             case 3:
                 $cartesAEnlever = 15;
                 break;
+            case 4:
+                $cartesAEnlever = 6;
             default:
                 $cartesAEnlever = 0;
         }
@@ -326,9 +209,9 @@ final class DebutPartie
         for ($i = 0; $i < $nombreCartes; $i++) {
             $index = array_rand($cartesPioche);
             $carte = $cartesPioche[$index] ?? null;
-            if ($carte) {
-                $partie->getPioche()->removeElement($carte);
-            }
+            $partie->removePioche($carte);
+            unset($cartesPioche[$index]);
+            $this->entityManager->persist($partie);
         }
     }
 }

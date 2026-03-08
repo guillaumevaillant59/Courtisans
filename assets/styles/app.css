@@ -29,3 +29,14 @@ header a {
 h1 {    
     text-align: center;    
 }
+
+.carte {
+    width: 5rem;
+    height: 7.5rem;
+}
+
+.mission {
+    width: 12.5rem;
+    height: 7.5rem;
+}
+    

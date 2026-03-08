@@ -70,7 +70,6 @@ final class PartieController extends AbstractController
             $partie = $debutPartie->rejoindrePartie($partie, $user);
             $entityManager->flush();
         }
-
         return $this->redirectToRoute('app_partie_show', ['id' => $partie->getId()]);
     }
 
