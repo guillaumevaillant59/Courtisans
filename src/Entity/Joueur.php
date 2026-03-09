@@ -39,6 +39,9 @@ class Joueur
     #[ORM\Column]
     private ?int $position = null;
 
+    #[ORM\Column]
+    private ?bool $actif = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -136,6 +139,18 @@ class Joueur
     public function setPosition(int $position): static
     {
         $this->position = $position;
+
+        return $this;
+    }
+
+    public function isActif(): ?bool
+    {
+        return $this->actif;
+    }
+
+    public function setActif(bool $actif): static
+    {
+        $this->actif = $actif;
 
         return $this;
     }
