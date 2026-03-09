@@ -30,6 +30,11 @@ h1 {
     text-align: center;    
 }
 
+h2 {
+    text-align: center;
+    margin-top: 20px;
+}
+
 .carte {
     width: 7.5rem;
     height: 12.5rem;
@@ -40,5 +45,29 @@ h1 {
     height: 7.5rem;
 }
 
+ul {
+  list-style-type: none;
+}
 
-    
+#joueur-info {
+    display: flex;
+    flex-direction: row;
+    margin: 20px 0;
+}
+
+.mission-item {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+#main-cartes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+}
+
+.carte-item {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}

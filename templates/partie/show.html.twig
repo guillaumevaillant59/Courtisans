@@ -5,19 +5,90 @@
 {% block body %}
     <h1>Partie</h1>
     {% if partie.Status === 'en cours' %}
+    {% for joueur in partie.joueurs %}
+        {% if joueur.actif %}
+            <h2>C'est le tour de {{ joueur.utilisateur.pseudo }}</h2>            
+        {% endif %}
+    {% endfor %}
         <table class="table">
-            <tbody>
-            
+            <tbody>            
                 <tr>
                     <td>
                         {% for papillon in partie.domaineReine.lumiere.papillons %}
                             <img class="carte" src="{{ asset(papillon.path) }}" alt="{{ papillon.role }} - {{ papillon.famille }}">
                         {% endfor %}
                     </td>
+                    <td>
+                        {% for crapauds in partie.domaineReine.lumiere.crapauds %}
+                            <img class="carte" src="{{ asset(crapauds.path) }}" alt="{{ crapauds.role }} - {{ crapauds.famille }}">
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for rossignol in partie.domaineReine.lumiere.rossignols %}
+                            <img class="carte" src="{{ asset(rossignol.path) }}" alt="{{ rossignol.role }} - {{ rossignol.famille }}">
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for espion in partie.domaineReine.lumiere.espions %}
+                            <img class="carte" src="{{ asset(espion.path) }}" alt="{{ espion.role }} - {{ espion.famille }}">
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for lapin in partie.domaineReine.lumiere.lapins %}
+                            <img class="carte" src="{{ asset(lapin.path) }}" alt="{{ lapin.role }} - {{ lapin.famille }}">
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for cerf in partie.domaineReine.lumiere.cerfs %}
+                            <img class="carte" src="{{ asset(cerf.path) }}" alt="{{ cerf.role }} - {{ cerf.famille }}">
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for carpe in partie.domaineReine.lumiere.carpes %}
+                            <img class="carte" src="{{ asset(carpe.path) }}" alt="{{ carpe.role }} - {{ carpe.famille }}">
+                        {% endfor %}
+                    </td>
                 </tr>
 
                 <tr>                
                     <img  src="{{ asset('image/domaine_reine.jpg') }}" alt="Domaine de la reine">
+                </tr>
+                <tr>
+                    <td>
+                         {% for papillon in partie.domaineReine.disgrace.papillons %}
+                            <img class="carte" src="{{ asset(papillon.path) }}" alt="{{ papillon.role }} - {{ papillon.famille }}">
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for crapauds in partie.domaineReine.disgrace.crapauds %}
+                            <img class="carte" src="{{ asset(crapauds.path) }}" alt="{{ crapauds.role }} - {{ crapauds.famille }}">
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for rossignol in partie.domaineReine.disgrace.rossignols %}
+                            <img class="carte" src="{{ asset(rossignol.path) }}" alt="{{ rossignol.role }} - {{ rossignol.famille }}">
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for espion in partie.domaineReine.disgrace.espions %}
+                            <img class="carte" src="{{ asset(espion.path) }}" alt="{{ espion.role }} - {{ espion.famille }}">
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for lapin in partie.domaineReine.disgrace.lapins %}
+                            <img class="carte" src="{{ asset(lapin.path) }}" alt="{{ lapin.role }} - {{ lapin.famille }}">
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for cerf in partie.domaineReine.disgrace.cerfs %}
+                            <img class="carte" src="{{ asset(cerf.path) }}" alt="{{ cerf.role }} - {{ cerf.famille }}">
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for carpe in partie.domaineReine.disgrace.carpes %}
+                            <img class="carte" src="{{ asset(carpe.path) }}" alt="{{ carpe.role }} - {{ carpe.famille }}">
+                        {% endfor %}
+                    </td>
                 </tr>
             
                             
@@ -49,6 +120,21 @@
                     </tr>
             </tbody>
         </table>
+        {% for joueur in partie.joueurs %}
+            {% if joueur.utilisateur == app.user %}
+            <div id="joueur-info">
+                <ul> 
+                    <li class="mission-item"><img class="mission" src="{{ asset(joueur.missionBlanche.path) }}" alt="{{ joueur.missionBlanche.objectif }}"></li>
+                    <li class="mission-item"><img class="mission" src="{{ asset(joueur.missionBleue.path) }}" alt="{{ joueur.missionBleue.objectif }}"></li>
+                </ul>
+                <ul id="main-cartes">
+                    {% for carte in joueur.main.cartes %}
+                        <li class="carte-item"><img class="carte" src="{{ asset(carte.path) }}" alt="{{ carte.role }} - {{ carte.famille }}"></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        {% endfor %}
     {% endif %}
     <a href="{{ path('app_partie_index') }}">Retourner à la liste des parties</a>
 

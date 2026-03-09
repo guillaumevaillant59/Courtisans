@@ -112,6 +112,10 @@ final class DebutPartie
             $this->attribuerMissions($partie);
             $this->entityManager->persist($joueur);
         }
+        $joueurs = $partie->getJoueurs()->toArray();
+        $index = array_rand($joueurs);
+        $joueurs[$index]->setActif(true);
+        $this->entityManager->persist($joueurs[$index]);
     }
 
     // Méthode pour attribuer les missions aux joueurs
@@ -213,5 +217,31 @@ final class DebutPartie
             unset($cartesPioche[$index]);
             $this->entityManager->persist($partie);
         }
+    }
+
+    // Méthode pour faire passer un joueur à son tour
+    public function passerTour(Partie $partie): void   
+    {
+        $joueurs = $partie->getJoueurs()->toArray();
+        $position=0;
+        foreach ($joueurs as $joueur){
+            if ($joueur->isActif()) {
+                $joueur->setActif(false);
+                $position = $joueur->getPosition();
+                $this->entityManager->persist($joueur);
+            }
+        }
+        if($position === $partie->getNombreJoueurMax()){
+            $position = 1;
+        } else {
+            $position++;
+        }
+        foreach ($joueurs as $joueur){
+            if ($joueur->getPosition() === $position) {
+                $joueur->setActif(true);
+                $this->entityManager->persist($joueur);
+            }
+        }
+        $this->entityManager->flush();
     }
 }
