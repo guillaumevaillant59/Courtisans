@@ -71,3 +71,25 @@ ul {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
 }
+
+#modal-contenu {
+    position: fixed;
+    top: 30%;
+    left: 35%;
+    width: 30%;
+    height: 50%;
+    background-color: #00262f;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0;
+}
+
+.bouton {
+    background-color: #EEE9CB;
+    color: #00262F;
+    border: none;    
+    font-size: 1rem;
+}

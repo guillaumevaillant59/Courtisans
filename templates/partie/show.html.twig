@@ -94,7 +94,7 @@
                             
                     
                     {% for joueur in partie.joueurs %}
-                            <tr>
+                            
                             <tr>
                                 <td>{{ joueur.utilisateur.pseudo }}</td>
                             </tr>
@@ -133,6 +133,17 @@
                     {% endfor %}
                 </ul>
             </div>
+                {% if joueur.actif %}
+                    <div id="modal">
+                        <ul id ="modal-contenu">
+                            {% for carte in joueur.main.cartes %}
+                                <li class="carte-item"><img class="carte" src="{{ asset(carte.path) }}" alt="{{ carte.role }} - {{ carte.famille }}">
+                                    <button class="bouton">Jouer</button>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
             {% endif %}
         {% endfor %}
     {% endif %}
