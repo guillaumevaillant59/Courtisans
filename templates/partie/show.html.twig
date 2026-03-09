@@ -7,38 +7,30 @@
 
     <table class="table">
         <tbody>
+        {% if partie.Status === 'en cours' %}
             <tr>
-                <th>Id</th>
-                <td>{{ partie.id }}</td>
-            </tr>
-            <tr>
-                <th>NombreJoueurMax</th>
-                <td>{{ partie.nombreJoueurMax }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ partie.Status }}</td>
-            </tr>
-            <tr>
-                <th>Joueurs</th>
                 <td>
-                    <ul>
-                        {% for joueur in partie.joueurs %}
-                            <li>{{ joueur.utilisateur.email }}</li>
-                        {% endfor %}
-                    </ul>
+                    {% for papillon in partie.domaineReine.lumiere.papillons %}
+                        <img class="carte" src="{{ asset(papillon.path) }}" alt="{{ papillon.role }} - {{ papillon.famille }}">
+                    {% endfor %}
                 </td>
             </tr>
-            <tr>
-            {% if partie.Status === 'en cours' %}            
-                <th>Carte</th>
+
+            <tr>                
+                <img  src="{{ asset('image/domaine_reine.jpg') }}" alt="Domaine de la reine">
+            </tr>
+           
+                        
+                
                 {% for joueur in partie.joueurs %}
                         <tr>
+                        <tr>
                             <td>{{ joueur.utilisateur.pseudo }}</td>
+                        </tr>
+                        <tr>
                             <td>
                                 {% for carte in joueur.main.cartes %}
                                     <ul>
-                                        <li>{{ carte.role }} - {{ carte.famille }}</li>
                                         <img class="carte"src="{{ asset(carte.path) }}" alt="{{ carte.role }} - {{ carte.famille }}">
                                     </ul>
                                 {% endfor %}
@@ -51,10 +43,9 @@
                             </td>
                         </tr>
                     {% endfor %}
-                </tr>
-                <tr>
-                    <th>Pioche</th>
-                    <td>{{ partie.pioche|length }}</td>
+                
+                <tr>                    
+                    <td>Pioche: {{ partie.pioche|length }}</td>
                 </tr>
             {% endif %}
         </tbody>

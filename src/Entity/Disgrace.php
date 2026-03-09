@@ -20,59 +20,59 @@ class Disgrace
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
     #[ORM\JoinTable(name: 'disgrace_papillon')]
-    private Collection $papillon;
+    private Collection $papillons;
 
     /**
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
     #[ORM\JoinTable(name: 'disgrace_crapaud')]
-    private Collection $crapaud;
+    private Collection $crapauds;
 
     /**
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
     #[ORM\JoinTable(name: 'disgrace_rossignol')]
-    private Collection $rossignol;
+    private Collection $rossignols;
 
     /**
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
     #[ORM\JoinTable(name: 'disgrace_espion')]
-    private Collection $espion;
+    private Collection $espions;
 
     /**
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
     #[ORM\JoinTable(name: 'disgrace_cerf')]
-    private Collection $cerf;
+    private Collection $cerfs;
 
     /**
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
     #[ORM\JoinTable(name: 'disgrace_lapin')]
-    private Collection $lapin;
+    private Collection $lapins;
 
     /**
      * @var Collection<int, Carte>
      */
     #[ORM\ManyToMany(targetEntity: Carte::class)]
     #[ORM\JoinTable(name: 'disgrace_carpe')]
-    private Collection $carpe;
+    private Collection $carpes;
 
     public function __construct()
     {
-        $this->papillon = new ArrayCollection();
-        $this->crapaud = new ArrayCollection();
-        $this->rossignol = new ArrayCollection();
-        $this->espion = new ArrayCollection();
-        $this->cerf = new ArrayCollection();
-        $this->lapin = new ArrayCollection();
-        $this->carpe = new ArrayCollection();
+        $this->papillons = new ArrayCollection();
+        $this->crapauds = new ArrayCollection();
+        $this->rossignols = new ArrayCollection();
+        $this->espions = new ArrayCollection();
+        $this->cerfs = new ArrayCollection();
+        $this->lapins = new ArrayCollection();
+        $this->carpes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -83,23 +83,23 @@ class Disgrace
     /**
      * @return Collection<int, Carte>
      */
-    public function getPapillon(): Collection
+    public function getPapillons(): Collection
     {
-        return $this->papillon;
+        return $this->papillons;
     }
 
-    public function addPapillon(Carte $papillon): static
+    public function addPapillons(Carte $papillon): static
     {
-        if (!$this->papillon->contains($papillon)) {
-            $this->papillon->add($papillon);
+        if (!$this->papillons->contains($papillon)) {
+            $this->papillons->add($papillon);
         }
 
         return $this;
     }
 
-    public function removePapillon(Carte $papillon): static
+    public function removePapillons(Carte $papillon): static
     {
-        $this->papillon->removeElement($papillon);
+        $this->papillons->removeElement($papillon);
 
         return $this;
     }
@@ -107,23 +107,23 @@ class Disgrace
     /**
      * @return Collection<int, Carte>
      */
-    public function getCrapaud(): Collection
+    public function getCrapauds(): Collection
     {
-        return $this->crapaud;
+        return $this->crapauds;
     }
 
-    public function addCrapaud(Carte $crapaud): static
+    public function addCrapauds(Carte $crapaud): static
     {
-        if (!$this->crapaud->contains($crapaud)) {
-            $this->crapaud->add($crapaud);
+        if (!$this->crapauds->contains($crapaud)) {
+            $this->crapauds->add($crapaud);
         }
 
         return $this;
     }
 
-    public function removeCrapaud(Carte $crapaud): static
+    public function removeCrapauds(Carte $crapaud): static
     {
-        $this->crapaud->removeElement($crapaud);
+        $this->crapauds->removeElement($crapaud);
 
         return $this;
     }
@@ -131,23 +131,23 @@ class Disgrace
     /**
      * @return Collection<int, Carte>
      */
-    public function getRossignol(): Collection
+    public function getRossignols(): Collection
     {
-        return $this->rossignol;
+        return $this->rossignols;
     }
 
-    public function addRossignol(Carte $rossignol): static
+    public function addRossignols(Carte $rossignol): static
     {
-        if (!$this->rossignol->contains($rossignol)) {
-            $this->rossignol->add($rossignol);
+        if (!$this->rossignols->contains($rossignol)) {
+            $this->rossignols->add($rossignol);
         }
 
         return $this;
     }
 
-    public function removeRossignol(Carte $rossignol): static
+    public function removeRossignols(Carte $rossignol): static
     {
-        $this->rossignol->removeElement($rossignol);
+        $this->rossignols->removeElement($rossignol);
 
         return $this;
     }
@@ -155,23 +155,23 @@ class Disgrace
     /**
      * @return Collection<int, Carte>
      */
-    public function getEspion(): Collection
+    public function getEspions(): Collection
     {
-        return $this->espion;
+        return $this->espions;
     }
 
-    public function addEspion(Carte $espion): static
+    public function addEspions(Carte $espion): static
     {
-        if (!$this->espion->contains($espion)) {
-            $this->espion->add($espion);
+        if (!$this->espions->contains($espion)) {
+            $this->espions->add($espion);
         }
 
         return $this;
     }
 
-    public function removeEspion(Carte $espion): static
+    public function removeEspions(Carte $espion): static
     {
-        $this->espion->removeElement($espion);
+        $this->espions->removeElement($espion);
 
         return $this;
     }
@@ -179,23 +179,23 @@ class Disgrace
     /**
      * @return Collection<int, Carte>
      */
-    public function getCerf(): Collection
+    public function getCerfs(): Collection
     {
-        return $this->cerf;
+        return $this->cerfs;
     }
 
-    public function addCerf(Carte $cerf): static
+    public function addCerfs(Carte $cerf): static
     {
-        if (!$this->cerf->contains($cerf)) {
-            $this->cerf->add($cerf);
+        if (!$this->cerfs->contains($cerf)) {
+            $this->cerfs->add($cerf);
         }
 
         return $this;
     }
 
-    public function removeCerf(Carte $cerf): static
+    public function removeCerfs(Carte $cerf): static
     {
-        $this->cerf->removeElement($cerf);
+        $this->cerfs->removeElement($cerf);
 
         return $this;
     }
@@ -203,23 +203,23 @@ class Disgrace
     /**
      * @return Collection<int, Carte>
      */
-    public function getLapin(): Collection
+    public function getLapins(): Collection
     {
-        return $this->lapin;
+        return $this->lapins;
     }
 
-    public function addLapin(Carte $lapin): static
+    public function addLapins(Carte $lapin): static
     {
-        if (!$this->lapin->contains($lapin)) {
-            $this->lapin->add($lapin);
+        if (!$this->lapins->contains($lapin)) {
+            $this->lapins->add($lapin);
         }
 
         return $this;
     }
 
-    public function removeLapin(Carte $lapin): static
+    public function removeLapins(Carte $lapin): static
     {
-        $this->lapin->removeElement($lapin);
+        $this->lapins->removeElement($lapin);
 
         return $this;
     }
@@ -227,23 +227,23 @@ class Disgrace
     /**
      * @return Collection<int, Carte>
      */
-    public function getCarpe(): Collection
+    public function getCarpes(): Collection
     {
-        return $this->carpe;
+        return $this->carpes;
     }
 
-    public function addCarpe(Carte $carpe): static
+    public function addCarpes(Carte $carpe): static
     {
-        if (!$this->carpe->contains($carpe)) {
-            $this->carpe->add($carpe);
+        if (!$this->carpes->contains($carpe)) {
+            $this->carpes->add($carpe);
         }
 
         return $this;
     }
 
-    public function removeCarpe(Carte $carpe): static
+    public function removeCarpes(Carte $carpe): static
     {
-        $this->carpe->removeElement($carpe);
+        $this->carpes->removeElement($carpe);
 
         return $this;
     }
