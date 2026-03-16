@@ -49,10 +49,12 @@
                         {% endfor %}
                     </td>
                 </tr>
+            </tbody>
+        </table>
+                    <img class="domaine-reine" src="{{ asset('image/domaine_reine.jpg') }}" alt="Domaine de la reine">
 
-                <tr>                
-                    <img  src="{{ asset('image/domaine_reine.jpg') }}" alt="Domaine de la reine">
-                </tr>
+        <table class="table">
+            <tbody>
                 <tr>
                     <td>
                          {% for papillon in partie.domaineReine.disgrace.papillons %}
@@ -90,9 +92,10 @@
                         {% endfor %}
                     </td>
                 </tr>
-            
-                            
-                    
+            </tbody>
+        </table>
+        <table class="table">
+            <tbody>
                     {% for joueur in partie.joueurs %}
                             
                             <tr>
@@ -133,6 +136,7 @@
                     {% endfor %}
                 </ul>
             </div>
+            <!-- Modal pour afficher les cartes de la main du joueur quand c'est son tour -->
                 {% if joueur.actif %}
                     <div id="modal">
                         <ul id ="modal-contenu">

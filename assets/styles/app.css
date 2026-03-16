@@ -77,7 +77,7 @@ ul {
     top: 30%;
     left: 35%;
     width: 30%;
-    height: 50%;
+    height: 40%;
     background-color: #00262f;
     display: flex;
     flex-direction: row;
@@ -92,4 +92,10 @@ ul {
     color: #00262F;
     border: none;    
     font-size: 1rem;
+}
+
+.domaine-reine {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
 }
