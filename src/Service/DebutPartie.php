@@ -172,7 +172,7 @@ final class DebutPartie
         $domaineReine = new DomaineReine();
         $domaineReine->setLumiere($lumiere);
         $domaineReine->setDisgrace($disgrace);
-        $domaineReine->setPath('/assets/images/domaine_reine.jpg');
+        $domaineReine->setPath('images/domaine_reine.jpg');
 
         $this->entityManager->persist($lumiere);
         $this->entityManager->persist($disgrace);

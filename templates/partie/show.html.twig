@@ -142,7 +142,7 @@
                         <ul id ="modal-contenu">
                             {% for carte in joueur.main.cartes %}
                                 <li class="carte-item"><img class="carte" src="{{ asset(carte.path) }}" alt="{{ carte.role }} - {{ carte.famille }}">
-                                    <button class="bouton">Jouer</button>
+                                    <button class="bouton">Jouer cette carte</button>
                                 </li>
                             {% endfor %}
                         </ul>
