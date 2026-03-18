@@ -37,7 +37,7 @@ class Partie
     private ?int $nombreJoueurMax = null;
 
     #[ORM\Column(length: 10)]
-    private ?string $Status = null;
+    private ?string $status = null;
 
     public function __construct()
     {
@@ -130,12 +130,12 @@ class Partie
 
     public function getStatus(): ?string
     {
-        return $this->Status;
+        return $this->status;
     }
 
-    public function setStatus(string $Status): static
+    public function setStatus(string $status): static
     {
-        $this->Status = $Status;
+        $this->status = $status;
 
         return $this;
     }
