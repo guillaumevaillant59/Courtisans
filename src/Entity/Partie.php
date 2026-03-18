@@ -30,6 +30,7 @@ class Partie
      * @var Collection<int, Joueur>
      */
     #[ORM\OneToMany(targetEntity: Joueur::class, mappedBy: 'partie', cascade: ['persist', 'remove'])]
+    #[ORM\OrderBy(['id' => 'ASC'])]
     private Collection $joueurs;
 
     #[ORM\Column]     

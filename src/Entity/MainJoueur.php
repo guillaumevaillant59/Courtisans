@@ -21,6 +21,15 @@ class MainJoueur
     #[ORM\ManyToMany(targetEntity: Carte::class, inversedBy: 'mainJoueurs')]
     private Collection $cartes;
 
+    #[ORM\Column]
+    private ?bool $jouerReine = false;
+
+    #[ORM\Column]
+    private ?bool $jouerAdverse = false;
+
+    #[ORM\Column]
+    private ?bool $jouerSoi = false;
+
     public function __construct()
     {
         $this->cartes = new ArrayCollection();
@@ -51,6 +60,42 @@ class MainJoueur
     public function removeCarte(Carte $carte): static
     {
         $this->cartes->removeElement($carte);
+
+        return $this;
+    }
+
+    public function isJouerReine(): ?bool
+    {
+        return $this->jouerReine;
+    }
+
+    public function setJouerReine(bool $jouerReine): static
+    {
+        $this->jouerReine = $jouerReine;
+
+        return $this;
+    }
+
+    public function isJouerAdverse(): ?bool
+    {
+        return $this->jouerAdverse;
+    }
+
+    public function setJouerAdverse(bool $jouerAdverse): static
+    {
+        $this->jouerAdverse = $jouerAdverse;
+
+        return $this;
+    }
+
+    public function isJouerSoi(): ?bool
+    {
+        return $this->jouerSoi;
+    }
+
+    public function setJouerSoi(bool $jouerSoi): static
+    {
+        $this->jouerSoi = $jouerSoi;
 
         return $this;
     }

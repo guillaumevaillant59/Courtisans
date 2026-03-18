@@ -86,7 +86,7 @@ final class ServicePartie
         
         // Retirer la carte de la main du joueur
         $joueur->getMain()->removeCarte($carte);
-
+        $joueur->getMain()->setJouerReine(false);
         $this->entityManager->persist($joueur);
         $this->entityManager->persist($domaineReine);
         $this->entityManager->flush();
@@ -188,7 +188,11 @@ final class ServicePartie
 
         // Retirer la carte de la main du joueur qui ajoute la carte
         $joueurAjoutant->getMain()->removeCarte($carte);
-
+        if($joueurAjoutant->getId() === $joueurRecevant->getId()){
+            $joueurAjoutant->getMain()->setJouerSoi(false);
+        } else {
+            $joueurAjoutant->getMain()->setJouerAdverse(false);
+        }
         $this->entityManager->persist($joueurAjoutant);
         $this->entityManager->persist($joueurRecevant);
         $this->entityManager->flush();
@@ -253,7 +257,40 @@ final class ServicePartie
         return $carte;
     }
 
-    
+    // Méthode pour faire passer un joueur à son tour
+    public function passerTour(Partie $partie): void   
+    {
+        $joueurs = $partie->getJoueurs()->toArray();
+        $position=0;
+        foreach ($joueurs as $joueur){
+            if ($joueur->isActif()) {
+                $joueur->setActif(false);
+                $position = $joueur->getPosition();
+                $this->entityManager->persist($joueur);
+            }
+        }
+        if($position === $partie->getNombreJoueurMax()){
+            $position = 1;
+        } else {
+            $position++;
+        }
+        foreach ($joueurs as $joueur){
+            if ($joueur->getPosition() === $position) {
+                $this->activationJoueur($joueur);
+                $this->entityManager->persist($joueur);
+            }
+        }
+        $this->entityManager->flush();
+    }
+
+    public function activationJoueur(Joueur $joueur): void
+    {
+        $joueur->setActif(true);
+        $joueur->getMain()->setJouerReine(true);
+        $joueur->getMain()->setJouerAdverse(true);
+        $joueur->getMain()->setJouerSoi(true);
+        $this->entityManager->persist($joueur);
+    }
 
     
 
