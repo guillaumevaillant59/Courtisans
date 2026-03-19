@@ -14,12 +14,17 @@ class UtilisateurMapper{
 
     public function toDto(Utilisateur $utilisateur): UtilisateurDTO {
 
+        $joueurs = [];
+        foreach($utilisateur->getJoueurs() as $joueur){
+            $joueurs[] = $joueur->getId();
+        }
+
         return new UtilisateurDTO(
             id : $utilisateur->getId(),
             email: $utilisateur->getEmail(),
             password: $utilisateur->getPassword(),
             roles : $utilisateur->getRoles(),
-            joueurs: $utilisateur->getJoueurs()->toArray(),
+            joueurs: $joueurs,
             pseudo: $utilisateur->getPseudo(),
         );
 
