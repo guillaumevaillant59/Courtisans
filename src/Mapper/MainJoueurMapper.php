@@ -7,11 +7,11 @@ use App\Entity\MainJoueur;
 
 class MainJoueurMapper{
 
-    public function toDto(MainJoueur $mainJoueur, CarteMapper $carteMapper):MainJoueurDTO{
+    public function toDto(MainJoueur $mainJoueur):MainJoueurDTO{
 
         $cartes = [];
         foreach($mainJoueur->getCartes() as $carte){
-            $cartes[]=$carteMapper->toDto($carte);
+            $cartes[]=$carte->getId();
         }
 
         return new MainJoueurDTO(

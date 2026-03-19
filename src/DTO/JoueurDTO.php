@@ -7,7 +7,15 @@ namespace App\DTO;
 class JoueurDTO{
     public function __construct(
         public ?int $id,
-        public ?int $point
+        public ?int $utilisateur,
+        public ?int $partie,
+        public ?int $main,
+        public ?int $domaine,
+        public ?int $missonBlanche,
+        public ?int $missonBleue,
+        public ?int $points,
+        public ?int $position,
+        public ?bool $actif
     )
     {
         throw new \Exception('Not implemented');
