@@ -192,7 +192,7 @@ final class DebutPartie
                 $cartesAEnlever = 30;
                 break;
             case 3:
-                $cartesAEnlever = 15;
+                $cartesAEnlever = 18;
                 break;
             case 4:
                 $cartesAEnlever = 6;
