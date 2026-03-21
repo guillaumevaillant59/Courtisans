@@ -14,10 +14,11 @@ class UtilisateurController extends AbstractController
 {
     #[Route(path:'', name:'_index_utilisateur', methods: ['GET'])]
     public function index(UtilisateurRepository $repo,
-    UtilisateurMapper $utilisateurMapper
+        UtilisateurMapper $utilisateurMapper
     ): JsonResponse {
         $utilisateurs = $repo->findAll();
-        $utilisateursDtos = array_map(fn(Utilisateur $utilisateur) => $utilisateurMapper->toDto($utilisateur), $utilisateurs);
+        $utilisateursDtos = array_map(fn(Utilisateur $utilisateur) 
+        => $utilisateurMapper->toDto($utilisateur), $utilisateurs);
 
         return $this->json($utilisateursDtos);
     }
