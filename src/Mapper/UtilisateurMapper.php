@@ -22,7 +22,6 @@ class UtilisateurMapper{
         return new UtilisateurDTO(
             id : $utilisateur->getId(),
             email: $utilisateur->getEmail(),
-            password: $utilisateur->getPassword(),
             roles : $utilisateur->getRoles(),
             joueurs: $joueurs,
             pseudo: $utilisateur->getPseudo(),
