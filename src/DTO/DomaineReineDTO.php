@@ -11,6 +11,5 @@ class DomaineReineDTO{
         public ?string $path
 
     ){
-
     }
 }

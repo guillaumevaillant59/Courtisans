@@ -21,4 +21,17 @@ class PartieController extends AbstractController{
 
         return $this->json($partiesDtos);
     }
+
+    #[Route('/{id}', name: 'api_partie_show', methods: ['GET'])]
+    public function show(int $id, 
+        PartieRepository $repo,
+        PartieMapper $partieMapper
+        ): JsonResponse{
+
+        $partie = $repo->find($id);
+        $partieDto = $partieMapper->toDto($partie);
+
+        return $this->json($partieDto);
+
+    }
 }
