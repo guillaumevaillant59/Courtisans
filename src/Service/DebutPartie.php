@@ -218,7 +218,4 @@ final class DebutPartie
             $this->entityManager->persist($partie);
         }
     }
-
-    
-    
 }

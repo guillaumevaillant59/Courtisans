@@ -161,27 +161,27 @@ final class ServicePartie
     public function ajouterCarteDansDomaineJoueur(Joueur $joueurAjoutant, Joueur $joueurRecevant, Carte $carte): void
     {
         if($carte->getRole() === 'Espion') {
-            $joueurRecevant->getDomaine()->addEspion($carte);
+            $joueurRecevant->getDomaine()->addEspions($carte);
         } else {
             switch ($carte->getFamille()) {
                 case 'Papillon':
-                    $joueurRecevant->getDomaine()->addPapillon($carte);
+                    $joueurRecevant->getDomaine()->addPapillons($carte);
                     break;
                 
                 case 'Crapaud':
-                    $joueurRecevant->getDomaine()->addCrapaud($carte);
+                    $joueurRecevant->getDomaine()->addCrapauds($carte);
                     break;
                 case 'Rossignol':
-                    $joueurRecevant->getDomaine()->addRossignol($carte);
+                    $joueurRecevant->getDomaine()->addRossignols($carte);
                     break;
                 case 'Cerf':
-                    $joueurRecevant->getDomaine()->addCerf($carte);
+                    $joueurRecevant->getDomaine()->addCerfs($carte);
                     break;
                 case 'Lapin':
-                    $joueurRecevant->getDomaine()->addLapin($carte);
+                    $joueurRecevant->getDomaine()->addLapins($carte);
                     break;
                 case 'Carpe':
-                    $joueurRecevant->getDomaine()->addCarpe($carte);
+                    $joueurRecevant->getDomaine()->addCarpes($carte);
                     break;
             }
         }
@@ -202,27 +202,27 @@ final class ServicePartie
     public function retirerCarteDuDomaineJoueur(Joueur $joueur, Carte $carte): void
     {
         if( $carte->getRole() === 'Espion') {
-            $joueur->getDomaine()->removeEspion($carte);
+            $joueur->getDomaine()->removeEspions($carte);
         } else {
             switch ($carte->getFamille()) {
                 case 'Papillon':
-                    $joueur->getDomaine()->removePapillon($carte);
+                    $joueur->getDomaine()->removePapillons($carte);
                     break;
                 
                 case 'Crapaud':
-                    $joueur->getDomaine()->removeCrapaud($carte);
+                    $joueur->getDomaine()->removeCrapauds($carte);
                     break;
                 case 'Rossignol':
-                    $joueur->getDomaine()->removeRossignol($carte);
+                    $joueur->getDomaine()->removeRossignols($carte);
                     break;
                 case 'Cerf':
-                    $joueur->getDomaine()->removeCerf($carte);
+                    $joueur->getDomaine()->removeCerfs($carte);
                     break;
                 case 'Lapin':
-                    $joueur->getDomaine()->removeLapin($carte);
+                    $joueur->getDomaine()->removeLapins($carte);
                     break;
                 case 'Carpe':
-                    $joueur->getDomaine()->removeCarpe($carte);
+                    $joueur->getDomaine()->removeCarpes($carte);
                     break;
             }
         }
@@ -291,7 +291,4 @@ final class ServicePartie
         $joueur->getMain()->setJouerSoi(true);
         $this->entityManager->persist($joueur);
     }
-
-    
-
 }

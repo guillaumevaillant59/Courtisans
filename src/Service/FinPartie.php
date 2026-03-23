@@ -32,82 +32,82 @@ final class FinPartie
     public function placerEspionDansFamille(Partie $partie): void
     {
         $domaineReine = $partie->getDomaineReine();
-        $espionsLumiere = $domaineReine->getLumiere()->getEspion();
+        $espionsLumiere = $domaineReine->getLumiere()->getEspions();
         foreach ($espionsLumiere as $espion) {
-            $domaineReine->getLumiere()->removeEspion($espion);
+            $domaineReine->getLumiere()->removeEspions($espion);
            switch ($espion->getFamille()) 
            {
                 case 'Papillon': 
-                    $domaineReine->getLumiere()->addPapillon($espion);
+                    $domaineReine->getLumiere()->addPapillons($espion);
                     break; 
                 case 'Crapaud':
-                    $domaineReine->getLumiere()->addCrapaud($espion); 
+                    $domaineReine->getLumiere()->addCrapauds($espion); 
                     break; 
                 case 'Rossignol': 
-                    $domaineReine->getLumiere()->addRossignol($espion); 
+                    $domaineReine->getLumiere()->addRossignols($espion); 
                     break; 
                 case 'Cerf': 
-                    $domaineReine->getLumiere()->addCerf($espion); 
+                    $domaineReine->getLumiere()->addCerfs($espion); 
                     break; 
                 case 'Lapin': 
-                    $domaineReine->getLumiere()->addLapin($espion); 
+                    $domaineReine->getLumiere()->addLapins($espion); 
                     break; 
                 case 'Carpe': 
-                        $domaineReine->getLumiere()->addCarpe($espion); 
+                        $domaineReine->getLumiere()->addCarpes($espion); 
                         break; 
             }
         }
 
-        $espionsDisgrace = $domaineReine->getDisgrace()->getEspion();
+        $espionsDisgrace = $domaineReine->getDisgrace()->getEspions();
         foreach ($espionsDisgrace as $espion) {
-            $domaineReine->getDisgrace()->removeEspion($espion);
+            $domaineReine->getDisgrace()->removeEspions($espion);
             switch ($espion->getFamille()) 
             { 
                 case 'Papillon': 
-                    $domaineReine->getDisgrace()->addPapillon($espion); 
+                    $domaineReine->getDisgrace()->addPapillons($espion); 
                     break; 
                 case 'Crapaud': 
-                    $domaineReine->getDisgrace()->addCrapaud($espion); 
+                    $domaineReine->getDisgrace()->addCrapauds($espion); 
                     break; 
                 case 'Rossignol': 
-                    $domaineReine->getDisgrace()->addRossignol($espion); 
+                    $domaineReine->getDisgrace()->addRossignols($espion); 
                     break; 
                 case 'Cerf': 
-                    $domaineReine->getDisgrace()->addCerf($espion); 
+                    $domaineReine->getDisgrace()->addCerfs($espion); 
                     break; 
                 case 'Lapin': 
-                    $domaineReine->getDisgrace()->addLapin($espion); 
+                    $domaineReine->getDisgrace()->addLapins($espion); 
                     break; 
                 case 'Carpe': 
-                    $domaineReine->getDisgrace()->addCarpe($espion); 
+                    $domaineReine->getDisgrace()->addCarpes($espion); 
                     break; 
             }
         }
 
         $joueurs = $partie->getJoueurs();
         foreach ($joueurs as $joueur) {
-            $espionsDomaineJoueur = $joueur->getDomaine()->getEspion();
+            $espionsDomaineJoueur = $joueur->getDomaine()->getEspions();
             foreach ($espionsDomaineJoueur as $espion) {
-                $joueur->getDomaine()->removeEspion($espion);
+                $joueur->getDomaine()->removeEspions($espion);
                 switch ($espion->getFamille())
                 { 
                     case 'Papillon': 
-                        $joueur->getDomaine()->addPapillon($espion); 
+                        $joueur->getDomaine()->addPapillons($espion); 
                         break; 
                     case 'Crapaud': 
-                        $joueur->getDomaine()->addCrapaud($espion); 
+                        $joueur->getDomaine()->addCrapauds($espion); 
                         break; 
                     case 'Rossignol': 
-                        $joueur->getDomaine()->addRossignol($espion); 
+                        $joueur->getDomaine()->addRossignols($espion); 
                         break; 
                     case 'Cerf': 
-                        $joueur->getDomaine()->addCerf($espion); 
+                        $joueur->getDomaine()->addCerfs($espion); 
                         break; 
                     case 'Lapin': 
-                        $joueur->getDomaine()->addLapin($espion); 
+                        $joueur->getDomaine()->addLapins($espion); 
                         break; 
                     case 'Carpe': 
-                        $joueur->getDomaine()->addCarpe($espion); 
+                        $joueur->getDomaine()->addCarpes($espion); 
                         break; 
                 }
             }
@@ -182,21 +182,21 @@ final class FinPartie
         $cartes = null;
         switch ($famille) {
             case 'Papillon':
-                $cartes = $domaineReine->getLumiere()->getPapillon();
+                $cartes = $domaineReine->getLumiere()->getPapillons();
                 break;
             case 'Crapaud':         
-                $cartes = $domaineReine->getLumiere()->getCrapaud();
+                $cartes = $domaineReine->getLumiere()->getCrapauds();
                 break;
             case 'Rossignol':
-                $cartes = $domaineReine->getLumiere()->getRossignol();
+                $cartes = $domaineReine->getLumiere()->getRossignols();
                 break;
             case 'Cerf':
-                $cartes = $domaineReine->getLumiere()->getCerf();
+                $cartes = $domaineReine->getLumiere()->getCerfs();
                 break;
             case 'Lapin':
-                $cartes = $domaineReine->getLumiere()->getLapin();
+                $cartes = $domaineReine->getLumiere()->getLapins();
             case 'Carpe':
-                $cartes = $domaineReine->getLumiere()->getCarpe();
+                $cartes = $domaineReine->getLumiere()->getCarpes();
                 break;
         }
         foreach ($cartes as $carte) {
@@ -217,21 +217,21 @@ final class FinPartie
         $cartes = null;
         switch ($famille) {
             case 'Papillon':
-                $cartes = $domaineReine->getDisgrace()->getPapillon();
+                $cartes = $domaineReine->getDisgrace()->getPapillons();
                 break;
             case 'Crapaud':         
-                $cartes = $domaineReine->getDisgrace()->getCrapaud();
+                $cartes = $domaineReine->getDisgrace()->getCrapauds();
                 break;
             case 'Rossignol':
-                $cartes = $domaineReine->getDisgrace()->getRossignol();
+                $cartes = $domaineReine->getDisgrace()->getRossignols();
                 break;
             case 'Cerf':
-                $cartes = $domaineReine->getDisgrace()->getCerf();
+                $cartes = $domaineReine->getDisgrace()->getCerfs();
                 break;
             case 'Lapin':
-                $cartes = $domaineReine->getDisgrace()->getLapin();
+                $cartes = $domaineReine->getDisgrace()->getLapins();
             case 'Carpe':
-                $cartes = $domaineReine->getDisgrace()->getCarpe();
+                $cartes = $domaineReine->getDisgrace()->getCarpes();
                 break;
         }
         foreach ($cartes as $carte) {
@@ -279,21 +279,21 @@ final class FinPartie
         
         switch ($famille) {
             case 'Papillon':
-                $cartes = $domaineJoueur->getPapillon();
+                $cartes = $domaineJoueur->getPapillons();
                 break;
             case 'Crapaud':         
-                $cartes = $domaineJoueur->getCrapaud();
+                $cartes = $domaineJoueur->getCrapauds();
                 break;
             case 'Rossignol':
-                $cartes = $domaineJoueur->getRossignol();
+                $cartes = $domaineJoueur->getRossignols();
             case 'Cerf':
-                $cartes = $domaineJoueur->getCerf();
+                $cartes = $domaineJoueur->getCerfs();
                 break;
             case 'Lapin':
-                $cartes = $domaineJoueur->getLapin();
+                $cartes = $domaineJoueur->getLapins();
                 break;
             case 'Carpe':
-                $cartes = $domaineJoueur->getCarpe();
+                $cartes = $domaineJoueur->getCarpes();
                 break;
         }
         foreach ($cartes as $carte) {
@@ -320,32 +320,32 @@ final class FinPartie
         }
         switch ($numero) {
             case 1:
-                if($joueurGauche->getDomaine()->getPapillon()->count() > $joueur->getDomaine()->getPapillon()->count()) {
+                if($joueurGauche->getDomaine()->getPapillons()->count() > $joueur->getDomaine()->getPapillons()->count()) {
                     return true;
                 }
                 return false;
             case 2:
-                if($joueurGauche->getDomaine()->getCrapaud()->count() > $joueur->getDomaine()->getCrapaud()->count()) {
+                if($joueurGauche->getDomaine()->getCrapauds()->count() > $joueur->getDomaine()->getCrapauds()->count()) {
                     return true;
                 }
                 return false;
             case 3:
-                if($joueurGauche->getDomaine()->getRossignol()->count() > $joueur->getDomaine()->getRossignol()->count()) {
+                if($joueurGauche->getDomaine()->getRossignols()->count() > $joueur->getDomaine()->getRossignols()->count()) {
                     return true;
                 }
                 return false;
             case 4:
-                if($joueurGauche->getDomaine()->getCerf()->count() > $joueur->getDomaine()->getCerf()->count()) {
+                if($joueurGauche->getDomaine()->getCerfs()->count() > $joueur->getDomaine()->getCerfs()->count()) {
                     return true;  
                 }
                 return false;
             case 5:
-                if($joueurGauche->getDomaine()->getLapin()->count() > $joueur->getDomaine()->getLapin()->count()) {
+                if($joueurGauche->getDomaine()->getLapins()->count() > $joueur->getDomaine()->getLapins()->count()) {
                     return true;
                 }
                 return false;
             case 6:
-                if($joueurGauche->getDomaine()->getCarpe()->count() > $joueur->getDomaine()->getCarpe()->count()) {
+                if($joueurGauche->getDomaine()->getCarpes()->count() > $joueur->getDomaine()->getCarpes()->count()) {
                     return true;   
                 }
                 return false;
@@ -380,12 +380,12 @@ final class FinPartie
     {
         $nombreNoble = 0;
         $cartes = array_merge(
-            $joueur->getDomaine()->getPapillon()->toArray(),
-            $joueur->getDomaine()->getCrapaud()->toArray(),
-            $joueur->getDomaine()->getRossignol()->toArray(),
-            $joueur->getDomaine()->getCerf()->toArray(),
-            $joueur->getDomaine()->getLapin()->toArray(),
-            $joueur->getDomaine()->getCarpe()->toArray()
+            $joueur->getDomaine()->getPapillons()->toArray(),
+            $joueur->getDomaine()->getCrapauds()->toArray(),
+            $joueur->getDomaine()->getRossignols()->toArray(),
+            $joueur->getDomaine()->getCerfs()->toArray(),
+            $joueur->getDomaine()->getLapins()->toArray(),
+            $joueur->getDomaine()->getCarpes()->toArray()
         );
         foreach ($cartes as $carte) {
             if ($carte->getRole() === 'Noble') {
@@ -400,12 +400,12 @@ final class FinPartie
     {
         $nombreAssassin = 0;
         $cartes = array_merge(
-            $joueur->getDomaine()->getPapillon()->toArray(),
-            $joueur->getDomaine()->getCrapaud()->toArray(),
-            $joueur->getDomaine()->getRossignol()->toArray(),       
-            $joueur->getDomaine()->getCerf()->toArray(),
-            $joueur->getDomaine()->getLapin()->toArray(),
-            $joueur->getDomaine()->getCarpe()->toArray()
+            $joueur->getDomaine()->getPapillons()->toArray(),
+            $joueur->getDomaine()->getCrapauds()->toArray(),
+            $joueur->getDomaine()->getRossignols()->toArray(),       
+            $joueur->getDomaine()->getCerfs()->toArray(),
+            $joueur->getDomaine()->getLapins()->toArray(),
+            $joueur->getDomaine()->getCarpes()->toArray()
         );
         foreach ($cartes as $carte) {
             if ($carte->getRole() === 'Assassin') {
@@ -420,12 +420,12 @@ final class FinPartie
     {
         $nombreProtecteur = 0;
         $cartes = array_merge(
-            $joueur->getDomaine()->getPapillon()->toArray(),
-            $joueur->getDomaine()->getCrapaud()->toArray(),         
-            $joueur->getDomaine()->getRossignol()->toArray(),
-            $joueur->getDomaine()->getCerf()->toArray(),
-            $joueur->getDomaine()->getLapin()->toArray(),
-            $joueur->getDomaine()->getCarpe()->toArray()
+            $joueur->getDomaine()->getPapillons()->toArray(),
+            $joueur->getDomaine()->getCrapauds()->toArray(),         
+            $joueur->getDomaine()->getRossignols()->toArray(),
+            $joueur->getDomaine()->getCerfs()->toArray(),
+            $joueur->getDomaine()->getLapins()->toArray(),
+            $joueur->getDomaine()->getCarpes()->toArray()
         );
         foreach ($cartes as $carte) {
             if ($carte->getRole() === 'Protecteur') {
@@ -440,12 +440,12 @@ final class FinPartie
     {
         $nombreEspion = 0;
         $cartes = array_merge(
-            $joueur->getDomaine()->getPapillon()->toArray(),
-            $joueur->getDomaine()->getCrapaud()->toArray(),
-            $joueur->getDomaine()->getRossignol()->toArray(),
-            $joueur->getDomaine()->getCerf()->toArray(),
-            $joueur->getDomaine()->getLapin()->toArray(),
-            $joueur->getDomaine()->getCarpe()->toArray()
+            $joueur->getDomaine()->getPapillons()->toArray(),
+            $joueur->getDomaine()->getCrapauds()->toArray(),
+            $joueur->getDomaine()->getRossignols()->toArray(),
+            $joueur->getDomaine()->getCerfs()->toArray(),
+            $joueur->getDomaine()->getLapins()->toArray(),
+            $joueur->getDomaine()->getCarpes()->toArray()
         );
         foreach ($cartes as $carte) {
             if ($carte->getRole() === 'Espion') {
