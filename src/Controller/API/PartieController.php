@@ -114,36 +114,55 @@ class PartieController extends AbstractController{
         ], 201);
     }
 
-    #[Route('{id}/rejoindre', name:'api_partie_rejoindre', methods: ['POST'])]
-    public function join(
-    Partie $partie,
-    EntityManagerInterface $entityManager,
-    #[CurrentUser] $user,
-    DebutPartie $debutPartie,
-    Request $request
-): JsonResponse
-{
-    // Optionnel : récupérer les données JSON envoyées
-    $data = json_decode($request->getContent(), true);
+    #[Route('/{id}/rejoindre', name:'api_partie_rejoindre', methods: ['POST'])]
+        public function join(
+        Partie $partie,
+        EntityManagerInterface $entityManager,
+        #[CurrentUser] $user,
+        DebutPartie $debutPartie,
+        Request $request
+    ): JsonResponse
+    {
+        // Optionnel : récupérer les données JSON envoyées
+        $data = json_decode($request->getContent(), true);
 
-    if (!$user) {
-        return new JsonResponse(['error' => 'Non authentifié'], 401);
+        if (!$user) {
+            return new JsonResponse(['error' => 'Non authentifié'], 401);
+        }
+
+        if ($partie->getJoueurs()->contains($user)) {
+            return new JsonResponse(['error' => 'Déjà dans la partie'], 400);
+        }
+
+        if (count($partie->getJoueurs()) >= $partie->getNombreJoueurMax()) {
+            return new JsonResponse(['error' => 'Partie pleine'], 400);
+        }
+
+        $partie = $debutPartie->rejoindrePartie($partie, $user);
+        $entityManager->flush();
+
+        return new JsonResponse([
+            'message' => 'Partie rejointe',
+            'partieId' => $partie->getId()
+        ]);
     }
 
-    if ($partie->getJoueurs()->contains($user)) {
-        return new JsonResponse(['error' => 'Déjà dans la partie'], 400);
+    #[Route('/{id}', name: 'api_partie_delete', methods: ['DELETE'])]
+    public function delete(
+        Partie $partie,
+        EntityManagerInterface $entityManager,
+        #[CurrentUser] $user
+    ): JsonResponse
+    {
+        if (!$user) {
+            return new JsonResponse(['error' => 'Non authentifié'], 401);
+        }
+
+        $entityManager->remove($partie);
+        $entityManager->flush();
+
+        return new JsonResponse([
+            'message' => 'Partie supprimée'
+        ]);
     }
-
-    if (count($partie->getJoueurs()) >= $partie->getNombreJoueurMax()) {
-        return new JsonResponse(['error' => 'Partie pleine'], 400);
-    }
-
-    $partie = $debutPartie->rejoindrePartie($partie, $user);
-    $entityManager->flush();
-
-    return new JsonResponse([
-        'message' => 'Partie rejointe',
-        'partieId' => $partie->getId()
-    ]);
-}
 }

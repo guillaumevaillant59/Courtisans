@@ -54,6 +54,10 @@ final class DebutPartie
         $joueur->setPosition(1);
         $partie->addJoueur($joueur);
         $partie->setStatus('en attente');
+        
+        // Créer le domaine de la reine
+        $domaineReine = $this->creerDomaineReine();
+        $partie->setDomaineReine($domaineReine);
 
         $this->entityManager->persist($joueur);    
         $this->entityManager->persist($partie);
@@ -86,9 +90,6 @@ final class DebutPartie
     // Méthode pour initialiser la partie une fois que tous les joueurs ont rejoint
     public function initialiserPartie(Partie $partie): void
     {
-        // Créer le domaine de la reine
-        $domaineReine = $this->creerDomaineReine();
-        $partie->setDomaineReine($domaineReine);
 
         // Créer la pioche
         $this->creerPioche($partie, $this->carteRepository, $this->entityManager);

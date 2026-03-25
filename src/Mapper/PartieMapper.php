@@ -20,7 +20,7 @@ class PartieMapper{
 
         return new PartieDTO(
             id: $partie->getId(),
-            domaineReine: $partie->getDomaineReine()->getId(),
+            domaineReine: $partie->getDomaineReine()?->getId(),
             pioche: $pioche,
             joueurs: $joueurs,
             nombreJoueurMax: $partie->getNombreJoueurMax(),
