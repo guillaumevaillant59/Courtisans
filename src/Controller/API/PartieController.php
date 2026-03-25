@@ -10,13 +10,12 @@ use App\Mapper\PartieMapper;
 use App\Service\DebutPartie;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 #[Route('api/partie', 'api_partie')]
 class PartieController extends AbstractController{
@@ -114,4 +113,37 @@ class PartieController extends AbstractController{
             ]
         ], 201);
     }
+
+    #[Route('{id}/rejoindre', name:'api_partie_rejoindre', methods: ['POST'])]
+    public function join(
+    Partie $partie,
+    EntityManagerInterface $entityManager,
+    #[CurrentUser] $user,
+    DebutPartie $debutPartie,
+    Request $request
+): JsonResponse
+{
+    // Optionnel : récupérer les données JSON envoyées
+    $data = json_decode($request->getContent(), true);
+
+    if (!$user) {
+        return new JsonResponse(['error' => 'Non authentifié'], 401);
+    }
+
+    if ($partie->getJoueurs()->contains($user)) {
+        return new JsonResponse(['error' => 'Déjà dans la partie'], 400);
+    }
+
+    if (count($partie->getJoueurs()) >= $partie->getNombreJoueurMax()) {
+        return new JsonResponse(['error' => 'Partie pleine'], 400);
+    }
+
+    $partie = $debutPartie->rejoindrePartie($partie, $user);
+    $entityManager->flush();
+
+    return new JsonResponse([
+        'message' => 'Partie rejointe',
+        'partieId' => $partie->getId()
+    ]);
+}
 }
