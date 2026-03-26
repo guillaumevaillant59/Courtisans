@@ -3,7 +3,6 @@
 namespace App\Controller\API;
 
 use App\DTO\PartieDTO;
-use App\Entity\Joueur;
 use App\Entity\Partie;
 use App\Entity\Utilisateur;
 use App\Repository\PartieRepository;
@@ -15,6 +14,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
+use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('api/partie', 'api_partie')]
 class PartieController extends AbstractController{
@@ -48,17 +48,36 @@ class PartieController extends AbstractController{
         return $this->json($partiesDtos);
     }
 
-    #[Route('/{id}', name: 'api_partie_show', methods: ['GET'])]
-    public function show(int $id, 
-        PartieRepository $repo,
-        PartieMapper $partieMapper
-        ): JsonResponse{
+    #[Route('/{id}', name: 'show', methods: ['GET'])]
+    public function show(
+            int $id,
+            EntityManagerInterface $entityManager,
+            SerializerInterface $serializer,
+        ): JsonResponse {
+            try {
+                // Vérifie si l'utilisateur est authentifié via JWT
+                $user = $this->getUser(); // null si token invalide ou absent
+                if (!$user) {
+                    return $this->json(['error' => 'Token invalide ou expiré'], 401);
+                }
 
-        $partie = $repo->find($id);
-        $partieDto = $partieMapper->toDto($partie);
+                // Récupère l'entité Partie
+                $partie = $entityManager->getRepository(Partie::class)->find($id);
 
-        return $this->json($partieDto);
-    }
+                if (!$partie) {
+                    return $this->json(['error' => 'Partie introuvable'], 404);
+                }
+
+                // Sérialisation sécurisée avec groupes
+                $data = $serializer->serialize($partie, 'json', ['groups' => ['partie']]);
+
+                return new JsonResponse($data, 200, [], true);
+
+            } catch (\Exception $e) {
+                // Retourne le message exact pour debug Angular
+                return $this->json(['error' => 'Erreur serveur: ' . $e->getMessage()], 500);
+            }
+        }
 
     #[Route('/creation', name: 'api_partie_create', methods: ['POST'])]
     public function create(
@@ -120,7 +139,7 @@ class PartieController extends AbstractController{
             return new JsonResponse(['error' => $e->getMessage()], 400);
         }
     }
-    
+
     #[Route('/{id}', name: 'api_partie_delete', methods: ['DELETE'])]
     public function delete(
         Partie $partie,

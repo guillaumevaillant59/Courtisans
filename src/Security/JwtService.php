@@ -26,8 +26,11 @@ class JwtService
     {
         [$base64Header, $base64Payload, $base64Sig] = explode('.', $token);
 
+        // Nouveau code sécurisé
         $sigCheck = hash_hmac('sha256', "$base64Header.$base64Payload", $this->secret, true);
-        if (!hash_equals($sigCheck, $this->base64UrlDecode($base64Sig))) {
+        $decodedSig = $this->base64UrlDecode($base64Sig);
+
+        if ($decodedSig === false || !hash_equals($sigCheck, $decodedSig)) {
             throw new \Exception('Token invalide');
         }
 
