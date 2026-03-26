@@ -8,6 +8,7 @@ use App\Entity\Carte;
 use App\Entity\DomaineReine;
 use App\Entity\Lumiere;
 use App\Entity\Disgrace;
+use App\Entity\DomaineJoueur;
 use App\Entity\Utilisateur;
 use App\Entity\MainJoueur;
 
@@ -117,6 +118,8 @@ final class DebutPartie
             // Créer la main du joueur
             $main = new MainJoueur();
             $joueur->setMain($main);
+            $domaineJoueur= new DomaineJoueur();
+            $joueur->setDomaine($domaineJoueur);
             // Distribuer des cartes au joueur. 
             $this->servicePartie->piocher($partie, $joueur);
             // Attribuer des missions au joueur.
