@@ -69,17 +69,27 @@ final class DebutPartie
     // Méthode pour rejoindre une partie existante
     public function rejoindrePartie(Partie $partie, Utilisateur $utilisateur): Partie
     {
+        // Vérifie si l'utilisateur est déjà dans la partie
+        foreach ($partie->getJoueurs() as $joueur) {
+            if ($joueur->getUtilisateur()->getId() === $utilisateur->getId()) {
+                throw new \LogicException('Vous êtes déjà dans cette partie');
+            }
+        }
+
         // Création du joueur qui rejoint la partie et association avec la partie
         $joueur = new Joueur();
         $joueur->setUtilisateur($utilisateur);
         $joueur->setPartie($partie);
         $joueur->setPosition($partie->getJoueurs()->count() + 1);           
         $partie->addJoueur($joueur);
+
+        // Si la partie est complète, passe le status à "en cours"
         if ($partie->getJoueurs()->count() === $partie->getNombreJoueurMax()) {
             $partie->setStatus('en cours');
             $this->initialiserPartie($partie);
         }
 
+        // Persiste les changements
         $this->entityManager->persist($joueur);
         $this->entityManager->persist($partie);
         $this->entityManager->flush();

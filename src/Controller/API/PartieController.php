@@ -3,6 +3,7 @@
 namespace App\Controller\API;
 
 use App\DTO\PartieDTO;
+use App\Entity\Joueur;
 use App\Entity\Partie;
 use App\Entity\Utilisateur;
 use App\Repository\PartieRepository;
@@ -13,8 +14,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 #[Route('api/partie', 'api_partie')]
@@ -68,18 +67,10 @@ class PartieController extends AbstractController{
         DebutPartie $debutPartie
     ): JsonResponse
     {
-        $authHeader = $request->headers->get('Authorization');
+        $user = $this->getUser();
 
-        if (!$authHeader || !str_starts_with($authHeader, 'Bearer ')) {
-            return $this->json(['error' => 'Token manquant'], 401);
-        }
-
-        $token = substr($authHeader, 7);
-
-        try {
-            $decoded = JWT::decode($token, new Key('a8f9d2s7f9s8d7f9s8d7f9s8d7f9s8d7f9s8d7f9s8d7f9s8d7f9s8d7f9s8d7', 'HS256'));
-        } catch (\Exception $e) {
-            return $this->json(['error' => 'Token invalide'], 401);
+        if (!$user) {
+            return $this->json(['error' => 'Non authentifié'], 401);
         }
 
         $data = json_decode($request->getContent(), true);
@@ -87,17 +78,6 @@ class PartieController extends AbstractController{
         $nbJoueurs = $data['nombreJoueurMax'] ?? null;
         if (!$nbJoueurs) {
             return $this->json(['error' => 'nombreJoueurMax requis'], 400);
-        }
-
-        // Récupérer l'utilisateur depuis le token décodé
-        $userId = $decoded->sub ?? null;
-        if (!$userId) {
-            return $this->json(['error' => 'Utilisateur invalide'], 401);
-        }
-
-        $user = $entityManager->getRepository(Utilisateur::class)->find($userId);
-        if (!$user) {
-            return $this->json(['error' => 'Utilisateur introuvable'], 401);
         }
 
         $partie = $debutPartie->creerPartie($nbJoueurs, $user);
@@ -115,38 +95,32 @@ class PartieController extends AbstractController{
     }
 
     #[Route('/{id}/rejoindre', name:'api_partie_rejoindre', methods: ['POST'])]
-        public function join(
+    public function join(
         Partie $partie,
         EntityManagerInterface $entityManager,
-        #[CurrentUser] $user,
         DebutPartie $debutPartie,
-        Request $request
+        #[CurrentUser] ?Utilisateur $user
     ): JsonResponse
     {
-        // Optionnel : récupérer les données JSON envoyées
-        $data = json_decode($request->getContent(), true);
-
         if (!$user) {
             return new JsonResponse(['error' => 'Non authentifié'], 401);
         }
 
-        if ($partie->getJoueurs()->contains($user)) {
-            return new JsonResponse(['error' => 'Déjà dans la partie'], 400);
+        try {
+            // Utilise le service pour ajouter l'utilisateur à la partie
+            $partie = $debutPartie->rejoindrePartie($partie, $user);
+
+            return new JsonResponse([
+                'message' => 'Partie rejointe',
+                'partieId' => $partie->getId(),
+                'joueurs' => array_map(fn($joueur) => $joueur->getUtilisateur()->getId(), $partie->getJoueurs()->toArray())
+            ]);
+        } catch (\LogicException $e) {
+            // Gestion de l'erreur si l'utilisateur est déjà dans la partie
+            return new JsonResponse(['error' => $e->getMessage()], 400);
         }
-
-        if (count($partie->getJoueurs()) >= $partie->getNombreJoueurMax()) {
-            return new JsonResponse(['error' => 'Partie pleine'], 400);
-        }
-
-        $partie = $debutPartie->rejoindrePartie($partie, $user);
-        $entityManager->flush();
-
-        return new JsonResponse([
-            'message' => 'Partie rejointe',
-            'partieId' => $partie->getId()
-        ]);
     }
-
+    
     #[Route('/{id}', name: 'api_partie_delete', methods: ['DELETE'])]
     public function delete(
         Partie $partie,
