@@ -13,8 +13,8 @@ class JoueurMapper{
             partie: $joueur->getPartie()?->getId(),
             main: $joueur->getMain()?->getId(),
             domaine: $joueur->getDomaine()?->getId(),
-            missonBlanche: $joueur->getMissionBlanche()?->getId(),
-            missonBleue: $joueur->getMissionBleue()?->getId(),
+            missionBlanche: $joueur->getMissionBlanche()?->getId(),
+            missionBleue: $joueur->getMissionBleue()?->getId(),
             points: $joueur->getPoints(),
             position: $joueur->getPosition(),
             actif: $joueur->isActif()

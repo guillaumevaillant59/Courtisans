@@ -11,8 +11,8 @@ class JoueurDTO{
         public ?int $partie,
         public ?int $main,
         public ?int $domaine,
-        public ?int $missonBlanche,
-        public ?int $missonBleue,
+        public ?int $missionBlanche,
+        public ?int $missionBleue,
         public ?int $points,
         public ?int $position,
         public ?bool $actif
