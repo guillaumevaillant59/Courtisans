@@ -120,6 +120,7 @@ final class DebutPartie
             $joueur->setMain($main);
             $domaineJoueur= new DomaineJoueur();
             $joueur->setDomaine($domaineJoueur);
+            $joueur->setPoints(0);
             // Distribuer des cartes au joueur. 
             $this->servicePartie->piocher($partie, $joueur);
             // Attribuer des missions au joueur.

@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
-use Symfony\Component\Serializer\SerializerInterface;
+
 
 #[Route('api/partie', 'api_partie')]
 class PartieController extends AbstractController{
@@ -51,8 +51,8 @@ class PartieController extends AbstractController{
     #[Route('/{id}', name: 'show', methods: ['GET'])]
     public function show(
             int $id,
-            EntityManagerInterface $entityManager,
-            SerializerInterface $serializer,
+            PartieRepository $partieRepository,
+            PartieMapper $partieMapper
         ): JsonResponse {
             try {
                 // Vérifie si l'utilisateur est authentifié via JWT
@@ -62,16 +62,16 @@ class PartieController extends AbstractController{
                 }
 
                 // Récupère l'entité Partie
-                $partie = $entityManager->getRepository(Partie::class)->find($id);
+                $partie = $partieRepository->find($id);
 
                 if (!$partie) {
                     return $this->json(['error' => 'Partie introuvable'], 404);
                 }
 
                 // Sérialisation sécurisée avec groupes
-                $data = $serializer->serialize($partie, 'json', ['groups' => ['partie']]);
+                $data = $partieMapper->toDto($partie);
 
-                return new JsonResponse($data, 200, [], true);
+                return $this->json($data);
 
             } catch (\Exception $e) {
                 // Retourne le message exact pour debug Angular

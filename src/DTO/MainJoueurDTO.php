@@ -11,6 +11,6 @@ class MainJoueurDTO{
         public ?bool $jouerSoi
     )
     {
-        throw new \Exception('Not implemented');
+        
     }
 }

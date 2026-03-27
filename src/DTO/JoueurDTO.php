@@ -18,6 +18,6 @@ class JoueurDTO{
         public ?bool $actif
     )
     {
-        throw new \Exception('Not implemented');
+        
     }
 }
